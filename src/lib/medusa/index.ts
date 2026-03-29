@@ -1,0 +1,1 @@
+export { medusaClient } from "./client";

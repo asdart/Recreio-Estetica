@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="600" viewBox="0 0 800 600">
+  <rect width="800" height="600" fill="#D6CEC4" rx="8"/>
+  <g transform="translate(400, 260)" fill="none" stroke="#A89E94" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <!-- Clinic building -->
+    <rect x="-100" y="-80" width="200" height="140" rx="4" fill="#C4BAB0"/>
+    <!-- Door -->
+    <rect x="-15" y="10" width="30" height="50" rx="3" fill="#B8AEA3"/>
+    <!-- Windows -->
+    <rect x="-70" y="-50" width="30" height="30" rx="2" fill="#E8E2DC"/>
+    <rect x="40" y="-50" width="30" height="30" rx="2" fill="#E8E2DC"/>
+    <!-- Cross -->
+    <line x1="0" y1="-70" x2="0" y2="-55"/>
+    <line x1="-7" y1="-62" x2="7" y2="-62"/>
+  </g>
+  <text x="400" y="460" text-anchor="middle" font-family="system-ui, sans-serif" font-size="16" fill="#A89E94" letter-spacing="0.1em">RECREIO ESTÉTICA</text>
+</svg>

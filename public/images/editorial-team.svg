@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="514" viewBox="0 0 1200 514">
+  <rect width="1200" height="514" fill="#D6CEC4" rx="8"/>
+  <g transform="translate(600, 220)" fill="none" stroke="#A89E94" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <!-- Person 1 -->
+    <circle cx="-80" cy="-30" r="18" fill="#C4BAB0"/>
+    <path d="M-100 10 Q-80 -5 -60 10 L-56 50 L-104 50Z" fill="#C4BAB0"/>
+    <!-- Person 2 -->
+    <circle cx="0" cy="-40" r="20" fill="#B8AEA3"/>
+    <path d="M-24 5 Q0 -12 24 5 L28 55 L-28 55Z" fill="#B8AEA3"/>
+    <!-- Person 3 -->
+    <circle cx="80" cy="-30" r="18" fill="#C4BAB0"/>
+    <path d="M60 10 Q80 -5 100 10 L104 50 L56 50Z" fill="#C4BAB0"/>
+  </g>
+  <text x="600" y="380" text-anchor="middle" font-family="system-ui, sans-serif" font-size="16" fill="#A89E94" letter-spacing="0.1em">NOSSA EQUIPE</text>
+</svg>
