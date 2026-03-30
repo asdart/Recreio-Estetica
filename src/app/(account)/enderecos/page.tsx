@@ -6,7 +6,7 @@ import { mockAddresses } from "@/mocks";
 
 export default function EnderecosPage() {
   return (
-    <Container className="py-10 md:py-16">
+    <Container data-header-theme="dark" className="py-10 md:py-16">
       <div className="mb-8 flex items-center justify-between">
         <h1 className="!text-3xl">Endereços</h1>
         <Button variant="outline">

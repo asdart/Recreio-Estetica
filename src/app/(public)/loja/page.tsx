@@ -5,7 +5,7 @@ import { LojaContent } from "./loja-content";
 
 export default function LojaPage() {
   return (
-    <Container className="py-10 md:py-16">
+    <Container data-header-theme="dark" className="py-10 md:py-16">
       <Suspense fallback={<ProductGridSkeleton />}>
         <LojaContent />
       </Suspense>

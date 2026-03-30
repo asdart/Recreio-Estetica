@@ -15,7 +15,7 @@ export default function CriarContaPage() {
   };
 
   return (
-    <Container className="py-10 md:py-20">
+    <Container data-header-theme="dark" className="py-10 md:py-20">
       <div className="mx-auto max-w-md">
         <div className="mb-8 text-center">
           <h1 className="!text-3xl">Criar Conta</h1>

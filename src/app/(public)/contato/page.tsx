@@ -7,7 +7,7 @@ import { WHATSAPP_NUMBER, WHATSAPP_BASE_URL } from "@/lib/constants";
 
 export default function ContatoPage() {
   return (
-    <Container className="py-10 md:py-16">
+    <Container data-header-theme="dark" className="py-10 md:py-16">
       <div className="mx-auto max-w-4xl">
         <div className="mb-12 text-center">
           <h1>Contato</h1>

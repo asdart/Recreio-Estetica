@@ -3,54 +3,42 @@ import Image from "next/image";
 import { ArrowRight, Shield, Truck, Award, MessageCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Container } from "@/components/layout/container";
-import { ProductCard } from "@/components/product/product-card";
-import { mockProducts, mockCategories } from "@/mocks";
+import { PromoTicker } from "@/components/commerce/promo-ticker";
+import { FeaturedProducts } from "@/components/commerce/featured-products";
+import { HeroContent } from "@/components/hero/hero-content";
+import { mockProducts, mockCategories, mockBrands } from "@/mocks";
 import { WHATSAPP_NUMBER, WHATSAPP_BASE_URL } from "@/lib/constants";
 
 const featuredProducts = mockProducts.filter((p) => p.featured);
+const brandMap = Object.fromEntries(mockBrands.map((b) => [b.id, b.name]));
 
 export default function HomePage() {
   return (
     <>
       {/* Hero */}
-      <section className="relative overflow-hidden bg-warm-100">
-        <Container className="py-20 md:py-28 lg:py-36">
-          <div className="mx-auto max-w-2xl text-center">
-            <p className="mb-4 text-xs font-medium uppercase tracking-[0.2em] text-muted-foreground">
-              Exclusivo para profissionais
-            </p>
-            <h1 className="mb-6">
-              Produtos premium para harmonização facial e corporal
-            </h1>
-            <p className="mb-8 text-base leading-relaxed text-muted-foreground md:text-lg">
-              Distribuição de toxinas botulínicas, ácidos hialurônicos,
-              bioestimuladores e skincare profissional para clínicas e
-              consultórios.
-            </p>
-            <div className="flex flex-col items-center gap-3 sm:flex-row sm:justify-center">
-              <Button asChild size="lg">
-                <Link href="/loja">
-                  Explorar Produtos
-                  <ArrowRight className="ml-2 h-4 w-4" />
-                </Link>
-              </Button>
-              <Button variant="outline" size="lg" asChild>
-                <a
-                  href={`${WHATSAPP_BASE_URL}/${WHATSAPP_NUMBER}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  <MessageCircle className="mr-2 h-4 w-4" />
-                  Falar com Consultor
-                </a>
-              </Button>
-            </div>
-          </div>
-        </Container>
+      <section data-header-theme="light" className="relative flex items-center justify-center overflow-hidden min-h-[600px] md:min-h-[800px] lg:min-h-[948px] -mt-[72px]">
+        {/* Background image + overlay */}
+        <Image
+          src="/images/hero-bg.png"
+          alt=""
+          fill
+          className="object-cover"
+          sizes="100vw"
+          priority
+        />
+        <div className="absolute inset-0 bg-[rgba(43,41,39,0.72)]" />
+
+        {/* Content */}
+        <div className="relative z-10 flex flex-col items-center justify-center w-full max-w-[1360px] px-6 py-12">
+          <HeroContent />
+        </div>
       </section>
 
+      {/* Promo Ticker */}
+      <PromoTicker />
+
       {/* Categories */}
-      <section className="py-20 md:py-28">
+      <section data-header-theme="dark" className="py-20 md:py-28">
         <Container>
           <div className="mb-10 text-center">
             <h2>Nossas Categorias</h2>
@@ -87,37 +75,10 @@ export default function HomePage() {
       </section>
 
       {/* Featured Products */}
-      <section className="bg-warm-50 py-20 md:py-28">
-        <Container>
-          <div className="mb-10 flex items-end justify-between">
-            <div>
-              <h2>Destaques</h2>
-              <p className="mt-2 text-muted-foreground">
-                Produtos mais procurados por profissionais
-              </p>
-            </div>
-            <Button variant="ghost" asChild className="hidden sm:flex">
-              <Link href="/loja">
-                Ver todos
-                <ArrowRight className="ml-2 h-4 w-4" />
-              </Link>
-            </Button>
-          </div>
-          <div className="grid grid-cols-2 gap-4 sm:gap-6 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
-            {featuredProducts.map((product) => (
-              <ProductCard key={product.id} product={product} />
-            ))}
-          </div>
-          <div className="mt-8 text-center sm:hidden">
-            <Button variant="outline" asChild>
-              <Link href="/loja">Ver todos os produtos</Link>
-            </Button>
-          </div>
-        </Container>
-      </section>
+      <FeaturedProducts products={featuredProducts} brandMap={brandMap} />
 
       {/* Trust Section */}
-      <section className="py-20 md:py-28">
+      <section data-header-theme="dark" className="py-20 md:py-28">
         <Container>
           <div className="mb-12 text-center">
             <h2>Para Profissionais da Estética</h2>
@@ -163,7 +124,7 @@ export default function HomePage() {
       </section>
 
       {/* WhatsApp Banner */}
-      <section className="bg-foreground text-background py-16 md:py-20">
+      <section data-header-theme="light" className="bg-foreground text-background py-16 md:py-20">
         <Container>
           <div className="mx-auto max-w-2xl text-center">
             <h2 className="!text-background mb-4">
@@ -192,7 +153,7 @@ export default function HomePage() {
       </section>
 
       {/* Editorial Block */}
-      <section className="py-20 md:py-28">
+      <section data-header-theme="dark" className="py-20 md:py-28">
         <Container>
           <div className="grid gap-12 md:grid-cols-2 md:items-center">
             <div className="relative aspect-[4/3] overflow-hidden rounded-lg bg-warm-100">

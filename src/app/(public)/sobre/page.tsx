@@ -4,7 +4,7 @@ import { Shield, Users, Heart } from "lucide-react";
 
 export default function SobrePage() {
   return (
-    <Container className="py-10 md:py-16">
+    <Container data-header-theme="dark" className="py-10 md:py-16">
       <div className="mx-auto max-w-3xl">
         <p className="mb-3 text-xs font-medium uppercase tracking-[0.2em] text-muted-foreground">
           Sobre nós

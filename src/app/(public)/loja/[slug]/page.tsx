@@ -39,7 +39,7 @@ export default function ProductDetailPage({
   );
 
   return (
-    <Container className="py-10 md:py-16">
+    <Container data-header-theme="dark" className="py-10 md:py-16">
       {/* Main product section */}
       <div className="grid gap-8 md:grid-cols-2 lg:gap-12">
         <ProductGallery images={product.images} />

@@ -12,7 +12,7 @@ export default function MeusPedidosPage() {
   const orders = useOrders();
 
   return (
-    <Container className="py-10 md:py-16">
+    <Container data-header-theme="dark" className="py-10 md:py-16">
       <h1 className="mb-8 !text-3xl">Meus Pedidos</h1>
 
       {orders.length === 0 ? (

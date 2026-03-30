@@ -41,7 +41,7 @@ const events = [
 
 export default function EventosPage() {
   return (
-    <Container className="py-10 md:py-16">
+    <Container data-header-theme="dark" className="py-10 md:py-16">
       <div className="mb-12 text-center">
         <h1>Eventos e Workshops</h1>
         <p className="mt-2 text-muted-foreground">

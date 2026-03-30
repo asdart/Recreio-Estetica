@@ -43,7 +43,7 @@ export default function MinhaContaPage() {
   const { customer, access } = useAuth();
 
   return (
-    <Container className="py-10 md:py-16">
+    <Container data-header-theme="dark" className="py-10 md:py-16">
       <div className="mb-8">
         <h1 className="!text-3xl">Minha Conta</h1>
         {customer && (

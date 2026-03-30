@@ -18,7 +18,7 @@ export default function RecomprasPage() {
 
   if (deliveredOrders.length === 0) {
     return (
-      <Container className="py-10 md:py-16">
+      <Container data-header-theme="dark" className="py-10 md:py-16">
         <h1 className="mb-8 !text-3xl">Recompras</h1>
         <EmptyState
           icon={<RefreshCw className="h-16 w-16" />}
@@ -35,7 +35,7 @@ export default function RecomprasPage() {
   }
 
   return (
-    <Container className="py-10 md:py-16">
+    <Container data-header-theme="dark" className="py-10 md:py-16">
       <h1 className="mb-2 !text-3xl">Recompras</h1>
       <p className="mb-8 text-muted-foreground">
         Repita pedidos anteriores com um clique

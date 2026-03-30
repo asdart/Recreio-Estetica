@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 
 export default function ErroPage() {
   return (
-    <Container className="py-10 md:py-20">
+    <Container data-header-theme="dark" className="py-10 md:py-20">
       <StatusState
         type="error"
         title="Erro no Pedido"

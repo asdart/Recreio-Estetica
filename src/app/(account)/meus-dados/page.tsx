@@ -12,7 +12,7 @@ export default function MeusDadosPage() {
   const { customer } = useAuth();
 
   return (
-    <Container className="py-10 md:py-16">
+    <Container data-header-theme="dark" className="py-10 md:py-16">
       <h1 className="mb-8 !text-3xl">Meus Dados</h1>
 
       <div className="mx-auto max-w-lg space-y-6">

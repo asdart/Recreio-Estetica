@@ -19,7 +19,7 @@ export default function CheckoutPage() {
 
   if (!access.isLoggedIn) {
     return (
-      <Container className="py-10 md:py-20">
+      <Container data-header-theme="dark" className="py-10 md:py-20">
         <StatusState
           type="warning"
           title="Login Necessário"
@@ -36,7 +36,7 @@ export default function CheckoutPage() {
 
   if (!access.canCheckout) {
     return (
-      <Container className="py-10 md:py-20">
+      <Container data-header-theme="dark" className="py-10 md:py-20">
         <StatusState
           type="pending"
           title="Validação Pendente"
@@ -53,7 +53,7 @@ export default function CheckoutPage() {
 
   if (items.length === 0) {
     return (
-      <Container className="py-10 md:py-20">
+      <Container data-header-theme="dark" className="py-10 md:py-20">
         <StatusState
           type="warning"
           title="Carrinho Vazio"
@@ -74,7 +74,7 @@ export default function CheckoutPage() {
   };
 
   return (
-    <Container className="py-10 md:py-16">
+    <Container data-header-theme="dark" className="py-10 md:py-16">
       <h1 className="mb-8 !text-3xl">Checkout</h1>
 
       <div className="grid gap-8 lg:grid-cols-3">

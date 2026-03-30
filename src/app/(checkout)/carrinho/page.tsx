@@ -18,7 +18,7 @@ export default function CarrinhoPage() {
 
   if (items.length === 0) {
     return (
-      <Container className="py-10 md:py-20">
+      <Container data-header-theme="dark" className="py-10 md:py-20">
         <EmptyState
           icon={<ShoppingBag className="h-16 w-16" />}
           title="Seu carrinho está vazio"
@@ -34,7 +34,7 @@ export default function CarrinhoPage() {
   }
 
   return (
-    <Container className="py-10 md:py-16">
+    <Container data-header-theme="dark" className="py-10 md:py-16">
       <h1 className="mb-8 !text-3xl">Carrinho</h1>
 
       {/* Validation banner */}
