@@ -5,11 +5,16 @@ import { Button } from "@/components/ui/button";
 import { Container } from "@/components/layout/container";
 import { PromoTicker } from "@/components/commerce/promo-ticker";
 import { FeaturedProducts } from "@/components/commerce/featured-products";
+import { BrowseCategories } from "@/components/commerce/browse-categories";
+import { ProductShowcase } from "@/components/commerce/product-showcase";
+import { HomeFaq } from "@/components/commerce/home-faq";
 import { HeroContent } from "@/components/hero/hero-content";
-import { mockProducts, mockCategories, mockBrands } from "@/mocks";
+import { mockProducts, mockBrands } from "@/mocks";
 import { WHATSAPP_NUMBER, WHATSAPP_BASE_URL } from "@/lib/constants";
 
 const featuredProducts = mockProducts.filter((p) => p.featured);
+const fillerProducts = mockProducts.filter((p) => p.categoryId === "cat-2");
+const skincareProducts = mockProducts.filter((p) => p.categoryId === "cat-5");
 const brandMap = Object.fromEntries(mockBrands.map((b) => [b.id, b.name]));
 
 export default function HomePage() {
@@ -37,45 +42,35 @@ export default function HomePage() {
       {/* Promo Ticker */}
       <PromoTicker />
 
-      {/* Categories */}
-      <section data-header-theme="dark" className="py-20 md:py-28">
-        <Container>
-          <div className="mb-10 text-center">
-            <h2>Nossas Categorias</h2>
-            <p className="mt-2 text-muted-foreground">
-              Encontre o produto ideal para seu protocolo
-            </p>
-          </div>
-          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">
-            {mockCategories.map((category) => (
-              <Link
-                key={category.id}
-                href={`/loja?category=${category.slug}`}
-                className="group relative flex flex-col items-center rounded-lg border border-border/60 bg-card p-6 text-center transition-all hover:border-foreground/20 hover:shadow-sm"
-              >
-                <div className="mb-4 h-20 w-20 rounded-full bg-warm-100 flex items-center justify-center">
-                  <Image
-                    src={category.image}
-                    alt={category.name}
-                    width={48}
-                    height={48}
-                    className="object-contain opacity-70"
-                  />
-                </div>
-                <h4 className="!text-sm !font-sans font-semibold mb-1">
-                  {category.name}
-                </h4>
-                <p className="text-xs text-muted-foreground line-clamp-2">
-                  {category.description}
-                </p>
-              </Link>
-            ))}
-          </div>
-        </Container>
-      </section>
-
       {/* Featured Products */}
       <FeaturedProducts products={featuredProducts} brandMap={brandMap} />
+
+      {/* Browse by Category */}
+      <BrowseCategories />
+
+      {/* Product Showcase — Preenchedores */}
+      <ProductShowcase
+        title="Preenchedores"
+        subtitle="Mantenha-se brilhante e saudável sem ter que pensar nisso."
+        image="https://assets.lummi.ai/assets/QmYybTZZXwoZq3LsG4QQD4dtkQhbdrJRZD9ZGNcD1Cvdaw?auto=format&w=1200"
+        imageAlt="Tratamento estético profissional com preenchedores"
+        products={fillerProducts}
+        brandMap={brandMap}
+        categorySlug="acido-hialuronico"
+        imagePosition="left"
+      />
+
+      {/* Product Showcase — Skinboosters */}
+      <ProductShowcase
+        title="Skinboosters"
+        subtitle="Hidratação profunda e biorevitalização para uma pele radiante."
+        image="https://assets.lummi.ai/assets/QmSBdAXMfdZcbwp8XeHjMZJRvUn9FAuNjoVKX2iRqNNoyz?auto=format&w=1200"
+        imageAlt="Tratamento de skincare profissional"
+        products={skincareProducts}
+        brandMap={brandMap}
+        categorySlug="skincare-profissional"
+        imagePosition="right"
+      />
 
       {/* Trust Section */}
       <section data-header-theme="dark" className="py-20 md:py-28">
@@ -151,6 +146,9 @@ export default function HomePage() {
           </div>
         </Container>
       </section>
+
+      {/* FAQ */}
+      <HomeFaq />
 
       {/* Editorial Block */}
       <section data-header-theme="dark" className="py-20 md:py-28">

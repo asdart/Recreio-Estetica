@@ -18,28 +18,30 @@ export function HeroContent() {
   return (
     <div
       ref={containerRef}
-      className="hero-entrance flex flex-col items-center gap-10 max-w-[768px] w-full text-center"
+      className="hero-entrance flex flex-col items-center gap-10 w-full max-w-[900px] text-center"
     >
-      <div className="flex flex-col gap-[18px] w-full">
-        <h1 className="hero-stagger !text-[clamp(2.5rem,6vw,5rem)] !leading-[0.95] tracking-[-1px] text-[#fdfcfb]">
-          <span className="hero-word">Produtos </span>
-          <span className="hero-word">para </span>
-          <span className="hero-word">estética </span>
-          <br className="hidden md:inline" />
-          <span className="hero-word">com </span>
-          <span className="hero-word">confiança </span>
-          <span className="hero-word">profissional.</span>
+      {/* Headline */}
+      <div className="flex flex-col gap-0 w-full">
+        <h1 className="hero-stagger !font-heading !font-normal !text-[clamp(3rem,7vw,6rem)] !leading-[1.0] tracking-[-2px] text-[#fdfcfb]">
+          <span className="hero-word block">
+            Produtos para estética
+          </span>
+          <span className="hero-word block">
+            com confiança profissional.
+          </span>
         </h1>
-        <p className="hero-fade font-sans text-lg leading-7 text-[#f5f4f0]">
-          Nós conectamos profissionais da área a marcas, produtos e
-          suporte especializado para uma compra mais segura, técnica e
-          eficiente.
-        </p>
       </div>
 
+      {/* Subtitle */}
+      <p className="hero-fade font-sans text-lg leading-7 text-[#fdfcfb]/80 max-w-[520px]">
+        Conectamos profissionais da área a marcas, produtos e suporte
+        especializado para uma compra mais segura, técnica e eficiente.
+      </p>
+
+      {/* Search pill CTA — full width, large */}
       <Link
         href="/loja"
-        className="hero-fade flex items-center justify-between w-full max-w-[600px] rounded-full border border-[rgba(253,252,251,0.16)] bg-[rgba(253,252,251,0.24)] backdrop-blur-[10px] pl-8 pr-[7px] py-[7px] transition-all hover:bg-[rgba(253,252,251,0.32)]"
+        className="hero-fade flex items-center justify-between w-full max-w-[640px] rounded-full border border-[rgba(253,252,251,0.16)] bg-[rgba(253,252,251,0.24)] backdrop-blur-[10px] pl-8 pr-[7px] py-[7px] transition-all duration-300 ease-out hover:bg-[rgba(253,252,251,0.32)] hover:border-[rgba(253,252,251,0.30)]"
       >
         <span className="font-sans text-base leading-6 text-[#fdfcfb]">
           O que você procura?

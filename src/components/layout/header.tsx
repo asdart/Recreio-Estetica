@@ -23,6 +23,7 @@ import { Badge } from "@/components/ui/badge";
 import { useAuth } from "@/features/auth/use-auth";
 import { useCartStore } from "@/features/cart/cart-store";
 import { NAV_LINKS } from "@/lib/constants";
+import { CartSidepanel } from "@/components/cart/cart-sidepanel";
 import { MegaMenu } from "./mega-menu";
 import { useHeaderTheme } from "@/hooks/use-header-theme";
 
@@ -56,6 +57,7 @@ const themeStyles = {
 export function Header() {
   const { customer, access, logout } = useAuth();
   const itemCount = useCartStore((s) => s.itemCount());
+  const openCart = useCartStore((s) => s.openCart);
   const [megaMenuOpen, setMegaMenuOpen] = useState(false);
   const headerTheme = useHeaderTheme();
 
@@ -218,8 +220,9 @@ export function Header() {
           </DropdownMenu>
 
           {/* Cart */}
-          <Link
-            href="/carrinho"
+          <button
+            onClick={openCart}
+            aria-label="Abrir carrinho"
             className={`relative inline-flex items-center justify-center rounded-full backdrop-blur-sm p-1.5 transition-all duration-500 ${t.text} ${t.actionBg}`}
           >
             <ShoppingBag className="h-5 w-5" />
@@ -230,9 +233,11 @@ export function Header() {
                 {itemCount}
               </Badge>
             )}
-          </Link>
+          </button>
         </div>
       </div>
+
+      <CartSidepanel />
     </header>
   );
 }
