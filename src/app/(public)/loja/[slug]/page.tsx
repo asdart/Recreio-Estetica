@@ -16,7 +16,6 @@ import {
   ChevronUp,
   AlertTriangle,
   ArrowUpRight,
-  Truck,
 } from "lucide-react";
 import { Accordion as AccordionPrimitive } from "@base-ui/react/accordion";
 import { cn } from "@/lib/utils";
@@ -66,12 +65,12 @@ export default function ProductDetailPage({
       {/* ─── HERO: Gallery + Sticky Info ──────────────── */}
       <section className="flex flex-col lg:flex-row">
         {/* Left — gallery: thumbnail strip + main image */}
-        <div className="w-full lg:sticky lg:top-[88px] lg:h-auto lg:w-1/2 lg:flex lg:justify-end">
+        <div className="w-full lg:sticky lg:top-[88px] lg:self-start lg:h-auto lg:w-1/2 lg:flex lg:justify-end">
           {product.images.length > 0 ? (
-            <div className="flex flex-col lg:flex-row lg:items-start lg:justify-end">
+            <div className="flex flex-col lg:flex-row lg:items-start lg:justify-end pt-16 pb-16">
               {/* Thumbnail strip */}
               {product.images.length > 1 && (
-                <div className="flex gap-2 overflow-x-auto p-3 lg:w-[96px] lg:flex-col lg:overflow-x-visible lg:overflow-y-auto lg:px-4 lg:py-16 lg:scrollbar-none">
+                <div className="flex gap-2 overflow-x-auto p-3 lg:w-[96px] lg:flex-col lg:overflow-x-visible lg:overflow-y-auto lg:px-4 lg:pt-0 lg:pb-4 lg:scrollbar-none">
                   {product.images.map((img, i) => (
                     <button
                       key={img.id}
@@ -171,22 +170,45 @@ export default function ProductDetailPage({
                 <span className="font-heading text-[40px] leading-[48px] text-[#2b2927]">
                   {formatCurrency(product.price)}
                 </span>
-                {product.compareAtPrice && (
-                  <div className="flex flex-col gap-1.5">
+                <div className="flex flex-col gap-2">
+                  {product.compareAtPrice && (
                     <div className="flex items-center gap-1.5">
-                      <span className="h-5 w-5 rounded-full bg-[#f5f4f0] p-0.5 text-center text-xs text-[#6a6662]">%</span>
+                      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none" className="shrink-0">
+                        <path d="M9.7854 11.1518C9.95372 10.9835 10.2474 10.9829 10.4159 11.1518L12.8157 13.5519C13.2597 13.9953 13.8501 14.2398 14.4777 14.2398L14.7669 14.2396L11.7188 17.2881C10.7694 18.2373 9.23054 18.2373 8.28136 17.2881L5.24189 14.2486H5.71484C6.0236 14.2494 6.32946 14.189 6.61473 14.0709C6.89999 13.9528 7.15901 13.7793 7.3768 13.5605L9.7854 11.1518Z" fill="#6A6662"/>
+                        <path d="M4.56128 6.4318C4.59999 6.44647 4.64115 6.45666 4.68496 6.45666H5.71484C6.15076 6.45789 6.5686 6.63105 6.87757 6.93857L9.28636 9.3472C9.39326 9.4542 9.52024 9.53905 9.66001 9.59685C9.79978 9.65466 9.9496 9.68429 10.1008 9.68404C10.2521 9.68426 10.4019 9.65459 10.5417 9.59676C10.6815 9.53892 10.8085 9.45404 10.9153 9.347L13.315 6.94755C13.624 6.64007 14.0418 6.46689 14.4777 6.46562H15.3152C15.3616 6.46562 15.4055 6.45543 15.446 6.43912L17.2881 8.28105C18.2373 9.23064 18.2373 10.7695 17.2881 11.7187L15.446 13.5609C15.4055 13.5446 15.3616 13.5344 15.3152 13.5344H14.4777C14.0418 13.5331 13.624 13.3599 13.315 13.0524L10.9153 10.6528C10.4803 10.2175 9.72143 10.2177 9.28617 10.6528L6.87757 13.0614C6.56855 13.3688 6.15073 13.5419 5.71484 13.5431H4.68496C4.64115 13.5431 4.59999 13.5533 4.56128 13.568L2.71203 11.7189C1.76266 10.7694 1.76266 9.23044 2.71203 8.28126L4.56128 6.4318Z" fill="#6A6662"/>
+                        <path d="M8.28115 2.71189C9.23053 1.7627 10.7694 1.7627 11.7188 2.71189L14.7669 5.76016H14.4777C14.1689 5.7593 13.8631 5.81965 13.5778 5.93774C13.2926 6.05582 13.0335 6.22929 12.8157 6.4481L10.4159 8.84836C10.3322 8.93186 10.2188 8.97876 10.1006 8.97876C9.98244 8.97876 9.86907 8.93186 9.7854 8.84836L7.3768 6.43934C6.93278 5.99572 6.34246 5.75139 5.71484 5.75139H5.24208L8.28115 2.71189Z" fill="#6A6662"/>
+                      </svg>
                       <span className="font-sans text-sm text-[#6a6662]">
                         Desconto de {Math.round(((product.compareAtPrice - product.price) / product.compareAtPrice) * 100)}% à vista
                       </span>
                     </div>
-                    <div className="flex items-center gap-1.5">
-                      <span className="h-5 w-5 rounded-full bg-[#f5f4f0] p-0.5 text-center text-[10px] text-[#6a6662]">💳</span>
-                      <span className="font-sans text-sm text-[#6a6662]">
-                        ou em até 6x sem juros {formatCurrency(product.price / 6)}
-                      </span>
-                    </div>
+                  )}
+                  <div className="flex items-center gap-1.5">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none" className="shrink-0">
+                      <path d="M8.05566 12C8.33158 12.0003 8.55566 12.224 8.55566 12.5C8.55566 12.776 8.33158 12.9997 8.05566 13H4.72266C4.44651 13 4.22266 12.7761 4.22266 12.5C4.22266 12.2239 4.44651 12 4.72266 12H8.05566Z" fill="#6A6662"/>
+                      <path d="M15.2783 12C15.5541 12.0004 15.7783 12.2241 15.7783 12.5C15.7783 12.7759 15.5541 12.9996 15.2783 13H14.167C13.8908 13 13.667 12.7761 13.667 12.5C13.667 12.2239 13.8908 12 14.167 12H15.2783Z" fill="#6A6662"/>
+                      <path fillRule="evenodd" clipRule="evenodd" d="M15.833 3.66602C17.3363 3.66602 18.5555 4.8854 18.5557 6.38867V13.6104C18.5557 15.1138 17.3364 16.333 15.833 16.333H4.16699C2.66355 16.333 1.44434 15.1138 1.44434 13.6104V6.38867C1.44453 4.8854 2.66367 3.66602 4.16699 3.66602H15.833ZM2.44434 13.6104C2.44434 14.5615 3.21584 15.333 4.16699 15.333H15.833C16.7842 15.333 17.5557 14.5615 17.5557 13.6104V8.55566H2.44434V13.6104ZM4.16699 4.66602C3.21596 4.66602 2.44453 5.43768 2.44434 6.38867V7.55566H17.5557V6.38867C17.5555 5.43768 16.784 4.66602 15.833 4.66602H4.16699Z" fill="#6A6662"/>
+                    </svg>
+                    <span className="font-sans text-sm text-[#6a6662]">
+                      ou em até 6x sem juros {formatCurrency(product.price / 6)}
+                    </span>
                   </div>
-                )}
+                  <div className="flex items-center gap-1.5">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none" className="shrink-0">
+                      <path d="M4.44444 17.5C5.51833 17.5 6.38889 16.6294 6.38889 15.5555C6.38889 14.4816 5.51833 13.6111 4.44444 13.6111C3.37056 13.6111 2.5 14.4816 2.5 15.5555C2.5 16.6294 3.37056 17.5 4.44444 17.5Z" stroke="#6A6662" strokeLinecap="round" strokeLinejoin="round"/>
+                      <path d="M12.5001 17.5C13.574 17.5 14.4446 16.6294 14.4446 15.5555C14.4446 14.4816 13.574 13.6111 12.5001 13.6111C11.4262 13.6111 10.5557 14.4816 10.5557 15.5555C10.5557 16.6294 11.4262 17.5 12.5001 17.5Z" stroke="#6A6662" strokeLinecap="round" strokeLinejoin="round"/>
+                      <path d="M10.5769 15.2777H6.38916" stroke="#6A6662" strokeLinecap="round" strokeLinejoin="round"/>
+                      <path d="M5.27783 3.05554H10.2778C11.5056 3.05554 12.5001 4.04999 12.5001 5.27776V13.6111" stroke="#6A6662" strokeLinecap="round" strokeLinejoin="round"/>
+                      <path d="M12.5 6.38892H14.9489C15.3267 6.38892 15.6789 6.58114 15.8833 6.89892L17.8789 10.0034C17.9944 10.1822 18.0556 10.3911 18.0556 10.6045V13.0556C18.0556 14.2834 17.0611 15.2778 15.8333 15.2778H14.4444" stroke="#6A6662" strokeLinecap="round" strokeLinejoin="round"/>
+                      <path d="M12.5 10.2777H17.9478" stroke="#6A6662" strokeLinecap="round" strokeLinejoin="round"/>
+                      <path d="M3.05566 6.38892H7.77789" stroke="#6A6662" strokeLinecap="round" strokeLinejoin="round"/>
+                      <path d="M0.833496 9.72217H5.55572" stroke="#6A6662" strokeLinecap="round" strokeLinejoin="round"/>
+                    </svg>
+                    <span className="font-sans text-sm text-[#6a6662]">
+                      Envio em 24h para todo o Brasil
+                    </span>
+                  </div>
+                </div>
               </div>
             ) : (
               <div className="rounded-2xl bg-[#f5f4f0] px-5 py-3">
@@ -195,16 +217,6 @@ export default function ProductDetailPage({
                 </p>
               </div>
             )}
-
-            {/* Volume */}
-            <div className="flex flex-col gap-2">
-              <p className="font-sans text-base text-[#2b2927]">Volume</p>
-              <div className="flex gap-1.5">
-                <span className="rounded-full bg-[#2b2927] px-3 py-2 font-sans text-sm font-medium text-[#fdfcfb]">
-                  {product.volume}
-                </span>
-              </div>
-            </div>
 
             {/* Warning box */}
             <div className="flex flex-col gap-2 rounded-2xl bg-[#faeee9] p-4">
@@ -219,35 +231,39 @@ export default function ProductDetailPage({
               </p>
             </div>
 
-            {/* Quantity + Add to cart */}
+            {/* Quantity + Shipping row */}
             <div className="flex flex-col gap-6">
-              <div className="flex gap-2">
-                {/* Quantity selector */}
-                <div className="flex items-center gap-0 rounded-full bg-[#f5f4f0] p-1">
+              <div className="flex flex-col gap-4">
+                <span className="font-sans text-xs font-semibold uppercase tracking-[1px] text-[#6a6662]">
+                  Quantidade
+                </span>
+                <div className="flex h-10 w-[136px] items-center justify-between rounded-full bg-[#f5f4f0] p-1">
                   <button
                     onClick={() => setQty((q) => Math.max(1, q - 1))}
-                    className="flex h-14 w-14 items-center justify-center rounded-full bg-[#edeae5] transition-colors hover:bg-[#e0ddd8]"
+                    className="flex h-8 w-8 items-center justify-center rounded-full bg-[#edeae5] transition-colors hover:bg-[#e0ddd8]"
                     aria-label="Diminuir quantidade"
                   >
-                    <Minus className="h-4 w-4 text-[#2b2927]" />
+                    <Minus className="h-3.5 w-3.5 text-[#2b2927]" />
                   </button>
-                  <span className="w-8 text-center font-sans text-sm text-[#2b2927]">{qty}</span>
+                  <span className="w-6 text-center font-sans text-sm text-[#2b2927]">{qty}</span>
                   <button
                     onClick={() => setQty((q) => q + 1)}
-                    className="flex h-14 w-14 items-center justify-center rounded-full bg-[#edeae5] transition-colors hover:bg-[#e0ddd8]"
+                    className="flex h-8 w-8 items-center justify-center rounded-full bg-[#edeae5] transition-colors hover:bg-[#e0ddd8]"
                     aria-label="Aumentar quantidade"
                   >
-                    <Plus className="h-4 w-4 text-[#2b2927]" />
+                    <Plus className="h-3.5 w-3.5 text-[#2b2927]" />
                   </button>
                 </div>
+              </div>
 
-                {/* Add to cart CTA */}
+              {/* CTA buttons */}
+              <div className="flex flex-col gap-4">
                 {!access.isLoggedIn ? (
                   <Link
                     href="/login"
-                    className="flex flex-1 items-center justify-center gap-2 rounded-full bg-[#2b2927] font-sans text-sm tracking-[0.4px] text-[#fdfcfb] transition-colors hover:bg-[#3a3835]"
+                    className="flex h-16 w-full items-center justify-center gap-3 rounded-full bg-[#2b2927] font-sans text-lg tracking-[0.4px] text-[#fdfcfb] transition-colors hover:bg-[#3a3835]"
                   >
-                    <LogIn className="h-4 w-4" />
+                    <LogIn className="h-5 w-5" />
                     Faça login para comprar
                   </Link>
                 ) : access.canCheckout ? (
@@ -256,73 +272,70 @@ export default function ProductDetailPage({
                     onClick={() => {
                       for (let i = 0; i < qty; i++) addItem(product);
                     }}
-                    className="flex flex-1 items-center justify-center gap-3 rounded-full bg-[#2b2927] font-sans text-sm tracking-[0.4px] text-[#fdfcfb] transition-colors hover:bg-[#3a3835] disabled:cursor-not-allowed disabled:opacity-50"
+                    className="flex h-16 w-full items-center justify-center gap-3 rounded-full bg-[#2b2927] font-sans text-lg tracking-[0.4px] text-[#fdfcfb] transition-colors hover:bg-[#3a3835] disabled:cursor-not-allowed disabled:opacity-50"
                   >
-                    <ShoppingBag className="h-4 w-4" strokeWidth={1.5} />
+                    <ShoppingBag className="h-5 w-5" strokeWidth={1.5} />
                     Adicionar ao carrinho
                   </button>
                 ) : (
-                  <span className="flex flex-1 items-center justify-center gap-2 rounded-full bg-[#f0ede9] font-sans text-sm text-[#9c9690]">
-                    <Clock className="h-4 w-4" />
+                  <span className="flex h-16 w-full items-center justify-center gap-2 rounded-full bg-[#f0ede9] font-sans text-lg text-[#9c9690]">
+                    <Clock className="h-5 w-5" />
                     Aguardando validação
                   </span>
                 )}
-              </div>
 
-              {/* WhatsApp */}
-              <a
-                href={whatsappUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-center justify-center gap-2 rounded-full border border-[#d6d2cc] py-4 font-sans text-sm tracking-[0.4px] text-[#2b2927] transition-colors hover:border-[#2b2927]"
-              >
-                <MessageCircle className="h-4 w-4" strokeWidth={1.5} />
-                Dúvidas? Fale conosco no Whatsapp
-              </a>
-
-              {/* Shipping note */}
-              <div className="flex items-center gap-2">
-                <Truck className="h-5 w-5 text-[#6a6662]" strokeWidth={1.5} />
-                <span className="font-sans text-sm text-[#6a6662]">
-                  Envio em 24h para todo o Brasil
-                </span>
+                {/* WhatsApp */}
+                <a
+                  href={whatsappUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex h-16 w-full items-center justify-center gap-3 rounded-full border border-[#4a4744] bg-[#f5f4f0] font-sans text-lg tracking-[0.4px] text-[#2b2927] transition-colors hover:border-[#2b2927] hover:bg-white"
+                >
+                  <MessageCircle className="h-5 w-5" strokeWidth={1.5} />
+                  Dúvidas? Fale conosco no Whatsapp
+                </a>
               </div>
             </div>
 
-            {/* Related SKU preview */}
-            {brand && (
-              <div className="flex flex-col gap-3 border-t border-[#edeae5] pt-6">
-                <span className="font-sans text-xs uppercase tracking-[1.2px] text-[#9c9690]">
-                  Conheça bem mais
+            {/* Combina Bem Com */}
+            {relatedProducts.length > 0 && (
+              <div className="flex flex-col gap-6 rounded-2xl bg-[rgba(43,41,39,0.04)] p-6">
+                <span className="font-sans text-xs font-semibold uppercase tracking-[1px] text-[#6a6662]">
+                  Combina Bem Com
                 </span>
-                <div className="flex items-center justify-between rounded-2xl bg-[#f5f4f0] p-3">
-                  <div className="flex items-center gap-3">
-                    {product.images[0] && (
-                      <div className="relative h-12 w-12 overflow-hidden rounded-xl">
-                        <Image
-                          src={product.images[0].url}
-                          alt={product.name}
-                          fill
-                          className="object-cover"
-                          sizes="48px"
-                        />
+                <div className="flex flex-col gap-6">
+                  {relatedProducts.slice(0, 3).map((p) => (
+                    <div key={p.id} className="flex items-center justify-between gap-6">
+                      <div className="flex flex-1 items-center gap-3">
+                        {p.images[0] && (
+                          <div className="relative h-12 w-12 shrink-0 overflow-hidden rounded-md bg-[#faeee9]">
+                            <Image
+                              src={p.images[0].url}
+                              alt={p.name}
+                              fill
+                              className="object-cover"
+                              sizes="48px"
+                            />
+                          </div>
+                        )}
+                        <div className="flex flex-col gap-1">
+                          <span className="font-sans text-sm font-medium text-[#2b2927]">
+                            {p.name}
+                          </span>
+                          <span className="font-sans text-sm text-[#6a6662]">
+                            {formatCurrency(p.price)}
+                          </span>
+                        </div>
                       </div>
-                    )}
-                    <div className="flex flex-col">
-                      <span className="font-sans text-sm font-medium text-[#2b2927]">
-                        {brand.name}
-                      </span>
-                      <span className="font-sans text-xs text-[#6a6662]">
-                        {formatCurrency(product.price)}
-                      </span>
+                      <Link
+                        href={`/loja/${p.slug}`}
+                        className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-[#6a6662] transition-colors hover:bg-[#2b2927]"
+                        aria-label={`Ver ${p.name}`}
+                      >
+                        <Plus className="h-4 w-4 text-white" />
+                      </Link>
                     </div>
-                  </div>
-                  <Link
-                    href={`/loja?category=${product.categoryId}`}
-                    className="flex h-8 w-8 items-center justify-center rounded-full border border-[#d6d2cc]"
-                  >
-                    <Plus className="h-3.5 w-3.5 text-[#2b2927]" />
-                  </Link>
+                  ))}
                 </div>
               </div>
             )}

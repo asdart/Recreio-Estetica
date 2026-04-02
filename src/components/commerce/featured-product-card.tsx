@@ -24,7 +24,7 @@ export function FeaturedProductCard({ product, brandName }: FeaturedProductCardP
   return (
     <Link
       href={`/loja/${product.slug}`}
-      className="group relative flex w-[320px] shrink-0 flex-col items-center overflow-clip rounded-[32px] bg-[#f5f4f0] p-2 transition-colors duration-300 hover:bg-[#b57e71]"
+      className="group relative flex w-[320px] shrink-0 flex-col items-center overflow-clip rounded-[32px] bg-[#f5f4f0] px-2 transition-colors duration-300 hover:bg-[#b57e71]"
     >
       {/*
         Fixed-height container: always 428px.
@@ -76,7 +76,7 @@ export function FeaturedProductCard({ product, brandName }: FeaturedProductCardP
         </div>
 
         {/* Add-to-cart button — sits below the content, slides into view on hover */}
-        <div className="absolute inset-x-3 bottom-0 translate-y-full transition-transform duration-300 ease-out group-hover:translate-y-0">
+        <div className="absolute inset-x-3 bottom-0 translate-y-full pb-4 transition-transform duration-300 ease-out group-hover:translate-y-0">
           <div className="flex h-14 items-center justify-center gap-2 rounded-full bg-[#2b2927] py-3">
             <ShoppingBag className="h-5 w-5 shrink-0 text-[#f5f4f0]" strokeWidth={1.5} />
             <span className="font-sans text-sm tracking-[0.4px] text-[#f5f4f0]">

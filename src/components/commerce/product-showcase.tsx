@@ -111,12 +111,16 @@ export function ProductShowcase({
 
             <Link
               href={`/loja?category=${categorySlug}`}
-              className="inline-flex items-center gap-2 rounded-full border border-[#4a4744] py-3.5 pl-6 pr-3.5 transition-colors hover:bg-[#2b2927] hover:text-[#fdfcfb]"
+              className="pill-btn group relative inline-flex items-center gap-2 overflow-hidden rounded-full border border-[#4a4744] py-3.5 pl-6 pr-3.5"
             >
-              <span className="font-sans text-base tracking-[0.4px]">
+              <span
+                aria-hidden
+                className="pill-btn__fill absolute right-3.5 h-8 w-8 rounded-full bg-[#2b2927]"
+              />
+              <span className="relative font-sans text-base tracking-[0.4px] transition-colors duration-500 group-hover:text-[#fdfcfb]">
                 Ver todos
               </span>
-              <span className="flex h-8 w-8 items-center justify-center rounded-full bg-[#2b2927] text-[#fdfcfb]">
+              <span className="relative flex h-8 w-8 shrink-0 items-center justify-center text-[#fdfcfb]">
                 <ArrowUpRight className="h-4 w-4" />
               </span>
             </Link>
