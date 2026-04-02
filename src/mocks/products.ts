@@ -1,4 +1,5 @@
 import { Product } from "@/types";
+import { buildUnsplashProductImages } from "./unsplash-aesthetic-images";
 
 export const mockProducts: Product[] = [
   {
@@ -11,11 +12,7 @@ export const mockProducts: Product[] = [
       "A DermaVita Toxina Botulínica 100U é um produto de alta pureza e potência, desenvolvido para profissionais que buscam resultados precisos e naturais em procedimentos de harmonização facial. Sua formulação avançada garante difusão controlada e duração prolongada, sendo ideal para tratamento de linhas glabelares, frontais e perioculares.",
     brandId: "brand-1",
     categoryId: "cat-1",
-    images: [
-      { id: "img-1-1", url: "/images/products/botox-100u-1.svg", alt: "DermaVita Toxina Botulínica 100U - Frente" },
-      { id: "img-1-2", url: "/images/products/botox-100u-2.svg", alt: "DermaVita Toxina Botulínica 100U - Lateral" },
-      { id: "img-1-3", url: "/images/products/botox-100u-3.svg", alt: "DermaVita Toxina Botulínica 100U - Detalhe" },
-    ],
+    images: buildUnsplashProductImages("prod-1", 3),
     price: 890.0,
     compareAtPrice: 1050.0,
     inStock: true,
@@ -64,10 +61,7 @@ export const mockProducts: Product[] = [
       "A versão 200U da DermaVita é ideal para clínicas com alto volume de procedimentos. Mesma qualidade e pureza da versão 100U, com melhor custo-benefício para profissionais que realizam múltiplos atendimentos diários.",
     brandId: "brand-1",
     categoryId: "cat-1",
-    images: [
-      { id: "img-2-1", url: "/images/products/botox-200u-1.svg", alt: "DermaVita Toxina Botulínica 200U - Frente" },
-      { id: "img-2-2", url: "/images/products/botox-200u-2.svg", alt: "DermaVita Toxina Botulínica 200U - Lateral" },
-    ],
+    images: buildUnsplashProductImages("prod-2", 2),
     price: 1590.0,
     compareAtPrice: 1890.0,
     inStock: true,
@@ -106,11 +100,7 @@ export const mockProducts: Product[] = [
       "O HyaluMed Deep Filler é um ácido hialurônico reticulado de alta densidade, desenvolvido para áreas que exigem sustentação e projeção. Sua tecnologia de reticulação avançada proporciona resultados duradouros com aspecto natural, sendo a escolha ideal para contorno mandibular, mento, zigomático e rinomodelação.",
     brandId: "brand-4",
     categoryId: "cat-2",
-    images: [
-      { id: "img-3-1", url: "/images/products/hyalumed-deep-1.svg", alt: "HyaluMed Deep Filler 1ml - Frente" },
-      { id: "img-3-2", url: "/images/products/hyalumed-deep-2.svg", alt: "HyaluMed Deep Filler 1ml - Caixa" },
-      { id: "img-3-3", url: "/images/products/hyalumed-deep-3.svg", alt: "HyaluMed Deep Filler 1ml - Seringa" },
-    ],
+    images: buildUnsplashProductImages("prod-3", 3),
     price: 650.0,
     inStock: true,
     specs: [
@@ -153,10 +143,7 @@ export const mockProducts: Product[] = [
       "O HyaluMed Light Filler é formulado com ácido hialurônico de média densidade, ideal para áreas que exigem precisão e suavidade. Perfeito para preenchimento labial, correção de olheiras e hidratação profunda da pele.",
     brandId: "brand-4",
     categoryId: "cat-2",
-    images: [
-      { id: "img-4-1", url: "/images/products/hyalumed-light-1.svg", alt: "HyaluMed Light Filler 1ml - Frente" },
-      { id: "img-4-2", url: "/images/products/hyalumed-light-2.svg", alt: "HyaluMed Light Filler 1ml - Detalhe" },
-    ],
+    images: buildUnsplashProductImages("prod-4", 2),
     price: 520.0,
     inStock: true,
     specs: [
@@ -194,9 +181,7 @@ export const mockProducts: Product[] = [
       "O HyaluMed Ultra Volume é o produto de maior densidade da linha, indicado para procedimentos que exigem volume significativo como preenchimento malar, volumização de glúteos e correções corporais.",
     brandId: "brand-4",
     categoryId: "cat-2",
-    images: [
-      { id: "img-5-1", url: "/images/products/hyalumed-ultra-1.svg", alt: "HyaluMed Ultra Volume 1ml" },
-    ],
+    images: buildUnsplashProductImages("prod-5", 1),
     price: 780.0,
     inStock: false,
     specs: [
@@ -229,9 +214,7 @@ export const mockProducts: Product[] = [
       "O HyaluMed Lips Definition foi desenvolvido exclusivamente para preenchimento labial. Sua formulação de baixa densidade e alta coesividade proporciona lábios naturais, hidratados e com contorno definido, sem aspecto artificial.",
     brandId: "brand-4",
     categoryId: "cat-2",
-    images: [
-      { id: "img-13-1", url: "/images/products/hyalumed-light-1.svg", alt: "HyaluMed Lips Definition 1ml" },
-    ],
+    images: buildUnsplashProductImages("prod-13", 1),
     price: 480.0,
     inStock: true,
     specs: [
@@ -269,9 +252,7 @@ export const mockProducts: Product[] = [
       "O HyaluMed Medium Filler oferece equilíbrio ideal entre sustentação e maleabilidade. Indicado para correção de sulcos nasogenianos, linhas de marionete e reposição volumétrica moderada.",
     brandId: "brand-4",
     categoryId: "cat-2",
-    images: [
-      { id: "img-14-1", url: "/images/products/hyalumed-deep-1.svg", alt: "HyaluMed Medium Filler 1ml" },
-    ],
+    images: buildUnsplashProductImages("prod-14", 1),
     price: 590.0,
     inStock: true,
     specs: [
@@ -304,9 +285,7 @@ export const mockProducts: Product[] = [
       "O HyaluMed Skin Booster é um ácido hialurônico de baixo peso molecular para biorevitalização. Promove hidratação profunda, melhora da luminosidade e qualidade da pele sem efeito de preenchimento volumétrico.",
     brandId: "brand-4",
     categoryId: "cat-2",
-    images: [
-      { id: "img-15-1", url: "/images/products/hyalumed-light-2.svg", alt: "HyaluMed Skin Booster 3ml" },
-    ],
+    images: buildUnsplashProductImages("prod-15", 1),
     price: 390.0,
     inStock: true,
     specs: [
@@ -344,9 +323,7 @@ export const mockProducts: Product[] = [
       "O HyaluMed Contour Body é formulado com macroreticulação para volumização corporal. Indicado para gluteoplastia não cirúrgica, correção de assimetrias e contorno de panturrilhas, com alto poder de projeção e duração prolongada.",
     brandId: "brand-4",
     categoryId: "cat-2",
-    images: [
-      { id: "img-16-1", url: "/images/products/hyalumed-ultra-1.svg", alt: "HyaluMed Contour Body 2ml" },
-    ],
+    images: buildUnsplashProductImages("prod-16", 1),
     price: 1250.0,
     inStock: true,
     specs: [
@@ -384,10 +361,7 @@ export const mockProducts: Product[] = [
       "O BioRenew PLLA é um bioestimulador de colágeno de última geração que estimula a produção natural de colágeno tipo I. Indicado para tratamento de flacidez facial e corporal, proporcionando rejuvenescimento gradual e natural ao longo das sessões.",
     brandId: "brand-2",
     categoryId: "cat-3",
-    images: [
-      { id: "img-6-1", url: "/images/products/biorenew-plla-1.svg", alt: "BioRenew PLLA - Kit 2 Frascos" },
-      { id: "img-6-2", url: "/images/products/biorenew-plla-2.svg", alt: "BioRenew PLLA - Frasco Individual" },
-    ],
+    images: buildUnsplashProductImages("prod-6", 2),
     price: 1850.0,
     compareAtPrice: 2200.0,
     inStock: true,
@@ -431,9 +405,7 @@ export const mockProducts: Product[] = [
       "O BioRenew CaHA combina efeito de preenchimento imediato com estimulação de colágeno a longo prazo. A hidroxiapatita de cálcio em microesferas proporciona sustentação enquanto estimula neocolagênese, sendo ideal para mãos, face e pescoço.",
     brandId: "brand-2",
     categoryId: "cat-3",
-    images: [
-      { id: "img-7-1", url: "/images/products/biorenew-caha-1.svg", alt: "BioRenew CaHA 1.5ml" },
-    ],
+    images: buildUnsplashProductImages("prod-7", 1),
     price: 1200.0,
     inStock: true,
     specs: [
@@ -470,10 +442,7 @@ export const mockProducts: Product[] = [
       "Os Fios PDO Espiculados BioRenew oferecem sustentação imediata e estímulo de colágeno ao longo do tempo. As espículas bidirecionais garantem ancoragem firme e resultado de lifting natural, ideal para terço médio e inferior da face.",
     brandId: "brand-2",
     categoryId: "cat-4",
-    images: [
-      { id: "img-8-1", url: "/images/products/fios-pdo-1.svg", alt: "Fios PDO Espiculados - Caixa" },
-      { id: "img-8-2", url: "/images/products/fios-pdo-2.svg", alt: "Fios PDO Espiculados - Detalhe" },
-    ],
+    images: buildUnsplashProductImages("prod-8", 2),
     price: 420.0,
     inStock: true,
     specs: [
@@ -511,9 +480,7 @@ export const mockProducts: Product[] = [
       "Os Fios PDO Lisos BioRenew são indicados para melhora da qualidade da pele e estímulo de colágeno difuso. Ideais para tratamento de textura, firmeza e luminosidade em face, pescoço e colo.",
     brandId: "brand-2",
     categoryId: "cat-4",
-    images: [
-      { id: "img-9-1", url: "/images/products/fios-lisos-1.svg", alt: "Fios PDO Lisos - Caixa" },
-    ],
+    images: buildUnsplashProductImages("prod-9", 1),
     price: 280.0,
     inStock: true,
     specs: [
@@ -546,10 +513,7 @@ export const mockProducts: Product[] = [
       "O Peeling de Retinol Aesthetica Lab é uma formulação profissional de alta concentração para protocolos de rejuvenescimento e tratamento de manchas, cicatrizes de acne e fotoenvelhecimento. Resultados visíveis desde a primeira sessão.",
     brandId: "brand-3",
     categoryId: "cat-5",
-    images: [
-      { id: "img-10-1", url: "/images/products/peeling-retinol-1.svg", alt: "Peeling Retinol 30ml - Frente" },
-      { id: "img-10-2", url: "/images/products/peeling-retinol-2.svg", alt: "Peeling Retinol 30ml - Textura" },
-    ],
+    images: buildUnsplashProductImages("prod-10", 2),
     price: 320.0,
     inStock: true,
     specs: [
@@ -588,9 +552,7 @@ export const mockProducts: Product[] = [
       "O Sérum de Vitamina C 20% da Aesthetica Lab é uma formulação estabilizada de ácido L-ascórbico para uso em protocolos profissionais e home care orientado. Promove luminosidade, uniformização do tom e proteção antioxidante avançada.",
     brandId: "brand-3",
     categoryId: "cat-5",
-    images: [
-      { id: "img-11-1", url: "/images/products/serum-vitc-1.svg", alt: "Sérum Vitamina C 30ml" },
-    ],
+    images: buildUnsplashProductImages("prod-11", 1),
     price: 189.0,
     inStock: true,
     specs: [
@@ -624,9 +586,7 @@ export const mockProducts: Product[] = [
       "O Aesthetica Skin Booster HA é um biorevitalizador de última geração formulado com ácido hialurônico de baixo e médio peso molecular. Promove hidratação intensa, melhora da elasticidade e luminosidade natural da pele em um único protocolo.",
     brandId: "brand-3",
     categoryId: "cat-5",
-    images: [
-      { id: "img-17-1", url: "/images/products/serum-vitc-1.svg", alt: "Aesthetica Skin Booster HA 2ml" },
-    ],
+    images: buildUnsplashProductImages("prod-17", 1),
     price: 420.0,
     inStock: true,
     specs: [
@@ -664,9 +624,7 @@ export const mockProducts: Product[] = [
       "O Aesthetica Mesotherapy Cocktail é uma formulação completa para protocolos de mesoterapia facial. Combina ácido hialurônico, vitaminas do complexo B, vitamina C, aminoácidos essenciais e minerais para revitalização profunda e efeito anti-aging.",
     brandId: "brand-3",
     categoryId: "cat-5",
-    images: [
-      { id: "img-18-1", url: "/images/products/peeling-retinol-1.svg", alt: "Aesthetica Mesotherapy Cocktail 5ml" },
-    ],
+    images: buildUnsplashProductImages("prod-18", 1),
     price: 290.0,
     inStock: true,
     specs: [
@@ -699,9 +657,7 @@ export const mockProducts: Product[] = [
       "O Aesthetica Exosome Serum representa a fronteira da biotecnologia aplicada à estética. Os exossomos vegetais atuam como mensageiros celulares, estimulando regeneração, síntese de colágeno e redução de marcadores inflamatórios para resultados visíveis desde a primeira sessão.",
     brandId: "brand-3",
     categoryId: "cat-5",
-    images: [
-      { id: "img-19-1", url: "/images/products/serum-vitc-1.svg", alt: "Aesthetica Exosome Serum 3ml" },
-    ],
+    images: buildUnsplashProductImages("prod-19", 1),
     price: 890.0,
     compareAtPrice: 1080.0,
     inStock: true,
@@ -740,9 +696,7 @@ export const mockProducts: Product[] = [
       "O Aesthetica PDRN Salmon DNA utiliza polinucleotídeos de DNA de salmão purificado para estimular receptores A2A e promover neovascularização, síntese de colágeno e cicatrização. Indicado para rejuvenescimento facial, cicatrizes de acne e olheiras.",
     brandId: "brand-3",
     categoryId: "cat-5",
-    images: [
-      { id: "img-20-1", url: "/images/products/peeling-retinol-2.svg", alt: "Aesthetica PDRN Salmon DNA 2ml" },
-    ],
+    images: buildUnsplashProductImages("prod-20", 1),
     price: 560.0,
     inStock: true,
     specs: [
@@ -780,9 +734,7 @@ export const mockProducts: Product[] = [
       "Versão compacta da DermaVita Toxina Botulínica, perfeita para retoques, tratamentos complementares e procedimentos localizados. Mesma qualidade e pureza em formato menor.",
     brandId: "brand-1",
     categoryId: "cat-1",
-    images: [
-      { id: "img-12-1", url: "/images/products/botox-50u-1.svg", alt: "DermaVita Toxina 50U" },
-    ],
+    images: buildUnsplashProductImages("prod-12", 1),
     price: 490.0,
     inStock: true,
     specs: [
