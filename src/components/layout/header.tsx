@@ -4,13 +4,30 @@ import Link from "next/link";
 import { useState } from "react";
 import {
   User,
-  ShoppingBag,
   Menu,
   LogOut,
   Package,
   MapPin,
   ChevronDown,
 } from "lucide-react";
+
+function IconEntrar({ className }: { className?: string }) {
+  return (
+    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none" className={className} aria-hidden>
+      <path d="M10.8335 3.05556H14.7224C15.9502 3.05556 16.9446 4.05 16.9446 5.27778V14.7222C16.9446 15.95 15.9502 16.9444 14.7224 16.9444H10.8335" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+      <path d="M7.5 13.8889L11.3889 10L7.5 6.11111" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+      <path d="M11.389 10H3.05566" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+    </svg>
+  );
+}
+
+function IconCarrinho({ className }: { className?: string }) {
+  return (
+    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none" className={className} aria-hidden>
+      <path fillRule="evenodd" clipRule="evenodd" d="M11.1963 2.34488C11.5583 2.14376 12.0146 2.27394 12.2158 2.6359L14.502 6.75016H17.0605C17.4748 6.75016 17.8105 7.08594 17.8105 7.50016C17.8105 7.9143 17.4747 8.25016 17.0605 8.25016H16.5L15.9609 14.7287C15.8423 16.1546 14.6502 17.2501 13.2207 17.2502H6.40039C4.97093 17.2501 3.77876 16.1546 3.66016 14.7287L3.12109 8.25016H2.56055C2.14639 8.25016 1.81063 7.9143 1.81055 7.50016C1.81055 7.08594 2.14633 6.75016 2.56055 6.75016H5.11914L7.40527 2.6359C7.60648 2.27394 8.06277 2.14376 8.4248 2.34488C8.78672 2.54611 8.91694 3.00241 8.71582 3.36442L6.83496 6.75016H12.7861L10.9053 3.36442C10.7042 3.00241 10.8344 2.54611 11.1963 2.34488ZM4.625 8.25016L5.15527 14.6037C5.2093 15.251 5.75044 15.7501 6.40039 15.7502H13.2207C13.8708 15.7501 14.412 15.2513 14.4658 14.6037L14.9961 8.25016H4.625Z" fill="currentColor"/>
+    </svg>
+  );
+}
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -39,7 +56,7 @@ const themeStyles = {
     text: "text-[#fdfcfb]",
     textHover: "hover:text-[#fdfcfb]/80",
     chevronBg: "bg-[rgba(253,252,251,0.08)]",
-    actionBg: "bg-[rgba(253,252,251,0.24)] hover:bg-[rgba(253,252,251,0.32)]",
+    actionBg: "bg-[rgba(253,252,251,0.06)] hover:bg-[rgba(253,252,251,0.20)]",
     badgeBg: "bg-[#fdfcfb] text-[#2b2927]",
     mobileBtn: "text-[#fdfcfb]/70 hover:text-[#fdfcfb] hover:bg-[rgba(253,252,251,0.12)]",
   },
@@ -163,76 +180,68 @@ export function Header() {
 
         {/* Right actions */}
         <div className="flex items-center gap-2 w-[128px] justify-end">
-          {/* User menu */}
-          <DropdownMenu>
-            <DropdownMenuTrigger
-              className={`inline-flex items-center justify-center rounded-full backdrop-blur-sm p-1.5 transition-all duration-500 ${t.text} ${t.actionBg}`}
+          {/* User pill — link to login when logged out, dropdown when logged in */}
+          {access.isLoggedIn ? (
+            <DropdownMenu>
+              <DropdownMenuTrigger
+                className={`inline-flex items-center gap-2 rounded-full pl-2 pr-3 py-1.5 text-sm font-medium leading-5 tracking-[-0.2px] backdrop-blur-sm transition-all duration-500 ${t.text} ${t.actionBg}`}
+              >
+                <IconEntrar className="h-5 w-5 shrink-0" />
+                <span>{customer?.firstName ?? "Conta"}</span>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="end" className="w-56">
+                <div className="px-3 py-2">
+                  <p className="text-sm font-medium">
+                    {customer?.firstName} {customer?.lastName}
+                  </p>
+                  <p className="text-xs text-muted-foreground">
+                    {customer?.email}
+                  </p>
+                </div>
+                <DropdownMenuSeparator />
+                <DropdownMenuItem>
+                  <Link href="/minha-conta" className="flex items-center w-full">
+                    <User className="mr-2 h-4 w-4" />
+                    Minha Conta
+                  </Link>
+                </DropdownMenuItem>
+                <DropdownMenuItem>
+                  <Link href="/meus-pedidos" className="flex items-center w-full">
+                    <Package className="mr-2 h-4 w-4" />
+                    Meus Pedidos
+                  </Link>
+                </DropdownMenuItem>
+                <DropdownMenuItem>
+                  <Link href="/enderecos" className="flex items-center w-full">
+                    <MapPin className="mr-2 h-4 w-4" />
+                    Endereços
+                  </Link>
+                </DropdownMenuItem>
+                <DropdownMenuSeparator />
+                <DropdownMenuItem onClick={logout}>
+                  <LogOut className="mr-2 h-4 w-4" />
+                  Sair
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
+          ) : (
+            <Link
+              href="/login"
+              className={`inline-flex items-center gap-2 rounded-full pl-2 pr-3 py-1.5 text-sm font-medium leading-5 tracking-[-0.2px] backdrop-blur-sm transition-all duration-500 ${t.text} ${t.actionBg}`}
             >
-              <User className="h-5 w-5" />
-            </DropdownMenuTrigger>
-            <DropdownMenuContent align="end" className="w-56">
-              {access.isLoggedIn ? (
-                <>
-                  <div className="px-3 py-2">
-                    <p className="text-sm font-medium">
-                      {customer?.firstName} {customer?.lastName}
-                    </p>
-                    <p className="text-xs text-muted-foreground">
-                      {customer?.email}
-                    </p>
-                  </div>
-                  <DropdownMenuSeparator />
-                  <DropdownMenuItem>
-                    <Link href="/minha-conta" className="flex items-center w-full">
-                      <User className="mr-2 h-4 w-4" />
-                      Minha Conta
-                    </Link>
-                  </DropdownMenuItem>
-                  <DropdownMenuItem>
-                    <Link href="/meus-pedidos" className="flex items-center w-full">
-                      <Package className="mr-2 h-4 w-4" />
-                      Meus Pedidos
-                    </Link>
-                  </DropdownMenuItem>
-                  <DropdownMenuItem>
-                    <Link href="/enderecos" className="flex items-center w-full">
-                      <MapPin className="mr-2 h-4 w-4" />
-                      Endereços
-                    </Link>
-                  </DropdownMenuItem>
-                  <DropdownMenuSeparator />
-                  <DropdownMenuItem onClick={logout}>
-                    <LogOut className="mr-2 h-4 w-4" />
-                    Sair
-                  </DropdownMenuItem>
-                </>
-              ) : (
-                <>
-                  <DropdownMenuItem>
-                    <Link href="/login" className="w-full">Entrar</Link>
-                  </DropdownMenuItem>
-                  <DropdownMenuItem>
-                    <Link href="/criar-conta" className="w-full">Criar Conta</Link>
-                  </DropdownMenuItem>
-                </>
-              )}
-            </DropdownMenuContent>
-          </DropdownMenu>
+              <IconEntrar className="h-5 w-5 shrink-0" />
+              <span>Entrar</span>
+            </Link>
+          )}
 
-          {/* Cart */}
+          {/* Cart pill */}
           <button
             onClick={openCart}
             aria-label="Abrir carrinho"
-            className={`relative inline-flex items-center justify-center rounded-full backdrop-blur-sm p-1.5 transition-all duration-500 ${t.text} ${t.actionBg}`}
+            className={`inline-flex items-center gap-2 rounded-full pl-2 pr-3 py-1.5 text-sm font-medium leading-5 tracking-[-0.2px] backdrop-blur-sm transition-all duration-500 ${t.text} ${t.actionBg}`}
           >
-            <ShoppingBag className="h-5 w-5" />
-            {itemCount > 0 && (
-              <Badge
-                className={`absolute -top-1 -right-1 flex h-4 w-4 items-center justify-center rounded-full p-0 text-[9px] font-semibold transition-colors duration-500 ${t.badgeBg}`}
-              >
-                {itemCount}
-              </Badge>
-            )}
+            <IconCarrinho className="h-5 w-5 shrink-0" />
+            <span className="w-5 text-center">{itemCount}</span>
           </button>
         </div>
       </div>

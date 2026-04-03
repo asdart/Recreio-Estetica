@@ -1,8 +1,6 @@
 import type { Metadata } from "next";
 import { Instrument_Sans, Instrument_Serif } from "next/font/google";
 import { AuthProvider } from "@/features/auth/auth-provider";
-import { Header } from "@/components/layout/header";
-import { Footer } from "@/components/layout/footer";
 import "./globals.css";
 
 const instrumentSans = Instrument_Sans({
@@ -36,11 +34,9 @@ export default function RootLayout({
       lang="pt-BR"
       className={`${instrumentSans.variable} ${instrumentSerif.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col font-sans">
+      <body className="min-h-full flex flex-col font-sans bg-[#f5f4f0]">
         <AuthProvider>
-          <Header />
-          <main className="flex-1 pt-[72px]">{children}</main>
-          <Footer />
+          {children}
         </AuthProvider>
       </body>
     </html>
