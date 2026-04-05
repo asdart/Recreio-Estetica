@@ -21,17 +21,19 @@ export default function HomePage() {
   return (
     <>
       {/* Hero */}
-      <section data-header-theme="light" className="relative flex items-center justify-center overflow-hidden min-h-[600px] md:min-h-[800px] lg:min-h-[948px] -mt-[72px]">
-        {/* Background image + overlay */}
-        <Image
-          src="/images/hero-bg.png"
-          alt=""
-          fill
-          className="object-cover"
-          sizes="100vw"
-          priority
-        />
-        <div className="absolute inset-0 bg-[rgba(43,41,39,0.72)]" />
+      <section data-header-theme="light" className="relative flex items-center justify-center min-h-[600px] md:min-h-[800px] lg:min-h-[948px] -mt-[72px]">
+        {/* Background image + overlay — clipped independently so dropdown is not cut off */}
+        <div className="absolute inset-0 overflow-hidden">
+          <Image
+            src="/images/hero-bg.png"
+            alt=""
+            fill
+            className="object-cover"
+            sizes="100vw"
+            priority
+          />
+          <div className="absolute inset-0 bg-[rgba(43,41,39,0.72)]" />
+        </div>
 
         {/* Content */}
         <div className="relative z-10 flex flex-col items-center justify-center w-full max-w-[1360px] px-6 py-12">
@@ -60,16 +62,13 @@ export default function HomePage() {
         imagePosition="left"
       />
 
-      {/* Product Showcase — Skinboosters */}
-      <ProductShowcase
+      {/* Skinboosters */}
+      <FeaturedProducts
         title="Skinboosters"
         subtitle="Hidratação profunda e biorevitalização para uma pele radiante."
-        image="https://assets.lummi.ai/assets/QmSBdAXMfdZcbwp8XeHjMZJRvUn9FAuNjoVKX2iRqNNoyz?auto=format&w=1200"
-        imageAlt="Tratamento de skincare profissional"
         products={skincareProducts}
         brandMap={brandMap}
         categorySlug="skincare-profissional"
-        imagePosition="right"
       />
 
       {/* Trust Section */}

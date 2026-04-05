@@ -2,7 +2,7 @@
 
 import { useRouter } from "next/navigation";
 import Link from "next/link";
-import { X } from "lucide-react";
+import { X, Eye, EyeOff } from "lucide-react";
 import { useState } from "react";
 import { useAuth } from "@/features/auth/use-auth";
 
@@ -11,15 +11,21 @@ export default function LoginPage() {
   const { login } = useAuth();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [leaving, setLeaving] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     login(email, password);
-    router.push("/");
+    setLeaving(true);
+    setTimeout(() => router.push("/"), 400);
   };
 
   return (
-    <div className="relative flex min-h-screen items-center justify-center bg-[#f5f4f0] px-4">
+    <div
+      className="relative flex min-h-screen items-center justify-center bg-[#f5f4f0] px-4 transition-opacity duration-400 ease-in-out"
+      style={{ opacity: leaving ? 0 : 1 }}
+    >
       {/* Close button — fixed to the page, top-right corner */}
       <button
         type="button"
@@ -82,15 +88,29 @@ export default function LoginPage() {
                     Esqueceu a senha?
                   </Link>
                 </div>
-                <input
-                  id="password"
-                  type="password"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  placeholder="••••••••"
-                  required
-                  className="h-[50px] w-full rounded-2xl border border-[#e4dfd8] bg-[#fdfcfb] px-5 font-sans text-sm text-[#2b2927] placeholder:text-[#bab1a8] outline-none transition-colors focus:border-[#2b2927]"
-                />
+                <div className="relative">
+                  <input
+                    id="password"
+                    type={showPassword ? "text" : "password"}
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    placeholder="••••••••"
+                    required
+                    className="h-[50px] w-full rounded-2xl border border-[#e4dfd8] bg-[#fdfcfb] px-5 pr-12 font-sans text-sm text-[#2b2927] placeholder:text-[#bab1a8] outline-none transition-colors focus:border-[#2b2927]"
+                  />
+                  <button
+                    type="button"
+                    onClick={() => setShowPassword((v) => !v)}
+                    className="absolute right-4 top-1/2 -translate-y-1/2 text-[#bab1a8] transition-colors hover:text-[#6a6662]"
+                    aria-label={showPassword ? "Esconder senha" : "Mostrar senha"}
+                  >
+                    {showPassword ? (
+                      <EyeOff className="h-4 w-4" />
+                    ) : (
+                      <Eye className="h-4 w-4" />
+                    )}
+                  </button>
+                </div>
               </div>
             </div>
 

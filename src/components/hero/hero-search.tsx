@@ -154,8 +154,8 @@ export function HeroSearch() {
 
       {/* Autocomplete dropdown */}
       {open && (
-        <div className="absolute left-0 right-0 top-[calc(100%+8px)] z-50 overflow-hidden rounded-[32px] border border-[rgba(43,41,39,0.16)] bg-[rgba(253,252,251,0.16)] backdrop-blur-[10px] shadow-2xl">
-          <ul role="listbox" className="flex flex-col p-3">
+        <div className="absolute left-0 right-0 top-[calc(100%+8px)] z-50 rounded-[32px] border border-[rgba(255,255,255,0.16)] bg-[rgba(253,252,251,0.16)] backdrop-blur-[10px] shadow-2xl">
+          <ul role="listbox" className="flex flex-col p-3 max-h-[280px] overflow-y-auto">
             {suggestions.map((s, i) => (
               <li
                 key={`${s.type}-${s.slug}`}
@@ -168,7 +168,7 @@ export function HeroSearch() {
                 onMouseEnter={() => setActiveIndex(i)}
                 className={`flex cursor-pointer items-center gap-[13px] rounded-3xl p-[10px] transition-colors duration-150 ${
                   i === activeIndex
-                    ? "bg-[rgba(43,41,39,0.08)]"
+                    ? "bg-[rgba(255,255,255,0.08)]"
                     : "hover:bg-[rgba(43,41,39,0.06)]"
                 }`}
               >
