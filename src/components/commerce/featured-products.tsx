@@ -92,10 +92,10 @@ export function FeaturedProducts({ products, brandMap, title, subtitle, category
       </div>
 
       {/* Carousel — breaks out of max-width container */}
-      <div className="mx-auto max-w-[1360px] px-6 mt-[72px]">
+      <div className="mx-auto max-w-[1360px] mt-[72px] pl-6">
         <div
           ref={scrollRef}
-          className="flex gap-4 overflow-visible scrollbar-none"
+          className="flex gap-4 overflow-x-auto scrollbar-none px-6 pb-4 -mb-4"
           style={{ scrollSnapType: "x mandatory" }}
         >
           {products.map((product) => (

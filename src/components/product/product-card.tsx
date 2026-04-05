@@ -26,6 +26,7 @@ export function ProductCard({ product, className }: ProductCardProps) {
         compareAtPrice={product.compareAtPrice}
         inStock={product.inStock}
         showPrice={access.canSeePrice || !access.isLoggedIn}
+        shortDescription={product.shortDescription}
         className={className}
       />
     </Link>
