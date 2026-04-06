@@ -11,28 +11,25 @@ export type HeaderTheme = "light" | "dark";
  * Returns "light" when the header sits on a dark background (light text),
  * and "dark" when it sits on a light background (dark text).
  */
+function getThemeFromDOM(): HeaderTheme {
+  if (typeof document === "undefined") return "dark";
+  const headerBottom = 80;
+  const probe = headerBottom / 2;
+  const sections = document.querySelectorAll<HTMLElement>("[data-header-theme]");
+  for (const section of sections) {
+    const rect = section.getBoundingClientRect();
+    if (rect.top <= probe && rect.bottom > probe) {
+      return (section.dataset.headerTheme as HeaderTheme) ?? "dark";
+    }
+  }
+  return "dark";
+}
+
 export function useHeaderTheme(): HeaderTheme {
-  const [theme, setTheme] = useState<HeaderTheme>("light");
+  const [theme, setTheme] = useState<HeaderTheme>(getThemeFromDOM);
 
   const recalculate = useCallback(() => {
-    const headerBottom = 80;
-    const probe = headerBottom / 2;
-
-    const sections = document.querySelectorAll<HTMLElement>(
-      "[data-header-theme]"
-    );
-
-    let result: HeaderTheme = "dark";
-
-    for (const section of sections) {
-      const rect = section.getBoundingClientRect();
-      if (rect.top <= probe && rect.bottom > probe) {
-        result = (section.dataset.headerTheme as HeaderTheme) ?? "dark";
-        break;
-      }
-    }
-
-    setTheme(result);
+    setTheme(getThemeFromDOM());
   }, []);
 
   useEffect(() => {

@@ -1,13 +1,15 @@
 "use client";
 
 import { useState, useMemo, useEffect, useRef, useCallback } from "react";
+import { X } from "lucide-react";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { Search, SlidersHorizontal, ArrowUp } from "lucide-react";
 import { ProductCard } from "@/components/product/product-card";
 import { ProductCardSkeleton } from "@/components/commerce/loading-state";
 import { Button } from "@/components/ui/button";
-import { mockProducts, mockCategories } from "@/mocks";
+import { Checkbox } from "@/components/ui/checkbox";
+import { mockProducts, mockCategories, mockBrands } from "@/mocks";
 import { cn } from "@/lib/utils";
 
 const PAGE_SIZE = 9;
@@ -18,9 +20,14 @@ export function LojaContent() {
   const searchParams = useSearchParams();
   const categorySlug = searchParams.get("category");
   const [sort, setSort] = useState<SortOption>("name");
-  const [activeCategory, setActiveCategory] = useState<string | null>(categorySlug);
+  const [activeCategories, setActiveCategories] = useState<string[]>(categorySlug ? [categorySlug] : []);
+  const [activeBrands, setActiveBrands] = useState<string[]>([]);
   const [search, setSearch] = useState("");
   const [filterOpen, setFilterOpen] = useState(false);
+
+  // Pending state — only committed when user hits "Aplicar"
+  const [pendingCategories, setPendingCategories] = useState<string[]>(categorySlug ? [categorySlug] : []);
+  const [pendingBrands, setPendingBrands] = useState<string[]>([]);
   const [page, setPage] = useState(1);
   const [isLoading, setIsLoading] = useState(false);
   const [showBackToTop, setShowBackToTop] = useState(false);
@@ -29,11 +36,18 @@ export function LojaContent() {
   const filteredProducts = useMemo(() => {
     let products = [...mockProducts];
 
-    if (activeCategory) {
-      const cat = mockCategories.find((c) => c.slug === activeCategory);
-      if (cat) {
-        products = products.filter((p) => p.categoryId === cat.id);
-      }
+    if (activeCategories.length > 0) {
+      const catIds = mockCategories
+        .filter((c) => activeCategories.includes(c.slug))
+        .map((c) => c.id);
+      products = products.filter((p) => catIds.includes(p.categoryId));
+    }
+
+    if (activeBrands.length > 0) {
+      const brandIds = mockBrands
+        .filter((b) => activeBrands.includes(b.slug))
+        .map((b) => b.id);
+      products = products.filter((p) => brandIds.includes(p.brandId));
     }
 
     if (search.trim()) {
@@ -58,12 +72,12 @@ export function LojaContent() {
     }
 
     return products;
-  }, [activeCategory, search, sort]);
+  }, [activeCategories, activeBrands, search, sort]);
 
   // Reset page when filters/search/sort change
   useEffect(() => {
     setPage(1);
-  }, [activeCategory, search, sort]);
+  }, [activeCategories, activeBrands, search, sort]);
 
   const visibleProducts = filteredProducts.slice(0, page * PAGE_SIZE);
   const hasMore = visibleProducts.length < filteredProducts.length;
@@ -92,6 +106,27 @@ export function LojaContent() {
     return () => observer.disconnect();
   }, [loadMore]);
 
+  // Sync pending state when panel opens
+  useEffect(() => {
+    if (filterOpen) {
+      setPendingCategories(activeCategories);
+      setPendingBrands(activeBrands);
+    }
+  }, [filterOpen]); // eslint-disable-line react-hooks/exhaustive-deps
+
+  // Lock body scroll when filter panel is open
+  useEffect(() => {
+    document.body.style.overflow = filterOpen ? "hidden" : "";
+    return () => { document.body.style.overflow = ""; };
+  }, [filterOpen]);
+
+  // Close filter panel on Escape
+  useEffect(() => {
+    const handler = (e: KeyboardEvent) => { if (e.key === "Escape") setFilterOpen(false); };
+    window.addEventListener("keydown", handler);
+    return () => window.removeEventListener("keydown", handler);
+  }, []);
+
   // Show back-to-top after one full viewport scroll
   useEffect(() => {
     const onScroll = () => setShowBackToTop(window.scrollY > window.innerHeight);
@@ -99,7 +134,9 @@ export function LojaContent() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  const activeCategoryData = mockCategories.find((c) => c.slug === activeCategory);
+  const activeCategoryData = activeCategories.length === 1
+    ? mockCategories.find((c) => c.slug === activeCategories[0])
+    : null;
 
   return (
     <div className="mx-auto flex max-w-[1366px] flex-col gap-12 px-6 pb-24 pt-16">
@@ -111,7 +148,7 @@ export function LojaContent() {
             <Link href="/" className="hover:underline">Início</Link>
             {" / "}
             {activeCategoryData ? (
-              <Link href="/loja" className="hover:underline" onClick={() => setActiveCategory(null)}>
+              <Link href="/loja" className="hover:underline" onClick={() => setActiveCategories([])}>
                 Todos os Produtos
               </Link>
             ) : null}
@@ -127,65 +164,24 @@ export function LojaContent() {
 
         {/* Right: Filter button + Search */}
         <div className="flex items-center gap-4">
-          {/* Filter dropdown */}
-          <div className="relative">
-            <button
-              onClick={() => setFilterOpen((v) => !v)}
-              className="flex h-12 items-center gap-2 rounded-full bg-[#f5f4f0] px-5 font-sans text-sm tracking-[0.4px] text-[#2b2927] transition-colors hover:bg-[#eae8e3]"
-            >
-              <SlidersHorizontal className="h-4 w-4" />
-              Filtrar
-            </button>
-            {filterOpen && (
-              <div className="absolute right-0 top-14 z-20 min-w-[240px] rounded-2xl border border-[#e4dfd8] bg-[#fdfcfb] p-4 shadow-lg">
-                {/* Category filter */}
-                <p className="mb-2 font-sans text-[11px] font-medium uppercase tracking-[1.5px] text-[#6a6662]">
-                  Categoria
-                </p>
-                <div className="mb-4 flex flex-col gap-1">
-                  <button
-                    onClick={() => { setActiveCategory(null); setFilterOpen(false); }}
-                    className={cn(
-                      "rounded-lg px-3 py-1.5 text-left font-sans text-sm transition-colors",
-                      !activeCategory ? "bg-[#2b2927] text-[#fdfcfb]" : "text-[#2b2927] hover:bg-[#f5f4f0]"
-                    )}
-                  >
-                    Todos
-                  </button>
-                  {mockCategories.map((cat) => (
-                    <button
-                      key={cat.id}
-                      onClick={() => { setActiveCategory(activeCategory === cat.slug ? null : cat.slug); setFilterOpen(false); }}
-                      className={cn(
-                        "rounded-lg px-3 py-1.5 text-left font-sans text-sm transition-colors",
-                        activeCategory === cat.slug ? "bg-[#2b2927] text-[#fdfcfb]" : "text-[#2b2927] hover:bg-[#f5f4f0]"
-                      )}
-                    >
-                      {cat.name}
-                    </button>
-                  ))}
-                </div>
-                {/* Sort */}
-                <p className="mb-2 font-sans text-[11px] font-medium uppercase tracking-[1.5px] text-[#6a6662]">
-                  Ordenar
-                </p>
-                <div className="flex flex-col gap-1">
-                  {(["name", "price-asc", "price-desc"] as SortOption[]).map((opt) => (
-                    <button
-                      key={opt}
-                      onClick={() => { setSort(opt); setFilterOpen(false); }}
-                      className={cn(
-                        "rounded-lg px-3 py-1.5 text-left font-sans text-sm transition-colors",
-                        sort === opt ? "bg-[#2b2927] text-[#fdfcfb]" : "text-[#2b2927] hover:bg-[#f5f4f0]"
-                      )}
-                    >
-                      {opt === "name" ? "Nome A–Z" : opt === "price-asc" ? "Menor preço" : "Maior preço"}
-                    </button>
-                  ))}
-                </div>
-              </div>
-            )}
-          </div>
+          {/* Filter button */}
+          {(() => {
+            const activeFilterCount = activeCategories.length + activeBrands.length;
+            return (
+              <button
+                onClick={() => setFilterOpen(true)}
+                className="flex h-12 items-center gap-2 rounded-full bg-[#f5f4f0] px-5 font-sans text-sm tracking-[0.4px] text-[#2b2927] transition-colors hover:bg-[#eae8e3]"
+              >
+                <SlidersHorizontal className="h-4 w-4" />
+                Filtrar
+                {activeFilterCount > 0 && (
+                  <span className="flex h-5 w-5 items-center justify-center rounded-full bg-[#2b2927] font-sans text-xs font-medium text-[#fdfcfb]">
+                    {activeFilterCount}
+                  </span>
+                )}
+              </button>
+            );
+          })()}
 
           {/* Search input */}
           <div className="flex h-12 w-[251px] items-center gap-2 rounded-2xl border border-[#e4dfd8] bg-[#fdfcfb] px-5">
@@ -230,12 +226,118 @@ export function LojaContent() {
           <Button
             variant="outline"
             className="mt-4 rounded-full"
-            onClick={() => { setActiveCategory(null); setSearch(""); }}
+            onClick={() => { setActiveCategories([]); setActiveBrands([]); setSearch(""); }}
           >
             Ver todos os produtos
           </Button>
         </div>
       )}
+      {/* Filter sidepanel backdrop */}
+      <div
+        aria-hidden="true"
+        onClick={() => setFilterOpen(false)}
+        className={cn(
+          "fixed inset-0 z-[60] bg-black/40 backdrop-blur-[2px] transition-opacity duration-[500ms]",
+          filterOpen ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"
+        )}
+      />
+
+      {/* Filter sidepanel */}
+      <aside
+        role="dialog"
+        aria-modal="true"
+        aria-label="Filtros"
+        className={cn(
+          "fixed right-0 top-0 z-[61] flex h-full w-full max-w-[480px] flex-col bg-white shadow-2xl transition-transform duration-[600ms] ease-[cubic-bezier(0.32,0.72,0,1)]",
+          filterOpen ? "translate-x-0" : "translate-x-full"
+        )}
+      >
+        {/* Header */}
+        <div className="flex items-center justify-between border-b border-[#f0ede9] px-8 py-6">
+          <span className="font-sans text-xs font-medium uppercase tracking-[2px] text-[#1a1917]">
+            {(() => { const n = pendingCategories.length + pendingBrands.length; return n > 0 ? `Filtros (${n})` : "Filtros"; })()}
+          </span>
+          <button
+            onClick={() => setFilterOpen(false)}
+            aria-label="Fechar filtros"
+            className="inline-flex items-center justify-center rounded-full bg-[rgba(43,41,39,0.08)] p-4 text-[#2b2927] transition-colors hover:bg-[rgba(43,41,39,0.14)]"
+          >
+            <X className="h-[10px] w-[10px]" strokeWidth={2} />
+          </button>
+        </div>
+
+        {/* Body */}
+        <div className="flex-1 overflow-y-auto px-8 py-8 flex flex-col gap-10">
+          {/* Marcas */}
+          <div>
+            <p className="mb-5 font-heading text-2xl text-[#1a1917]">Marcas</p>
+            <div className="flex flex-col">
+              {mockBrands.map((brand) => (
+                <label
+                  key={brand.id}
+                  className="flex cursor-pointer items-center gap-3 py-2.5 font-sans text-sm text-[#1a1917] transition-colors hover:text-[#6a6662]"
+                >
+                  <Checkbox
+                    checked={pendingBrands.includes(brand.slug)}
+                    onCheckedChange={(checked) => setPendingBrands((prev) =>
+                      checked ? [...prev, brand.slug] : prev.filter((s) => s !== brand.slug)
+                    )}
+                  />
+                  {brand.name}
+                </label>
+              ))}
+            </div>
+          </div>
+
+          {/* Categorias */}
+          <div>
+            <p className="mb-5 font-heading text-2xl text-[#1a1917]">Categorias</p>
+            <div className="flex flex-col">
+              {mockCategories.map((cat) => (
+                <label
+                  key={cat.id}
+                  className="flex cursor-pointer items-center gap-3 py-2.5 font-sans text-sm text-[#1a1917] transition-colors hover:text-[#6a6662]"
+                >
+                  <Checkbox
+                    checked={pendingCategories.includes(cat.slug)}
+                    onCheckedChange={(checked) => setPendingCategories((prev) =>
+                      checked ? [...prev, cat.slug] : prev.filter((s) => s !== cat.slug)
+                    )}
+                  />
+                  {cat.name}
+                </label>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        {/* Footer */}
+        <div className="flex items-center gap-4 border-t border-[#edeae5] bg-[#faf9f7] px-8 py-6">
+          <button
+            onClick={() => {
+              setPendingCategories([]);
+              setPendingBrands([]);
+              setActiveCategories([]);
+              setActiveBrands([]);
+              setFilterOpen(false);
+            }}
+            className="flex flex-1 items-center justify-center rounded-full bg-[#f5f4f0] px-6 py-3 font-sans text-base tracking-[0.4px] text-[#2b2927] transition-colors hover:bg-[#eae8e3]"
+          >
+            Limpar
+          </button>
+          <button
+            onClick={() => {
+              setActiveCategories(pendingCategories);
+              setActiveBrands(pendingBrands);
+              setFilterOpen(false);
+            }}
+            className="flex flex-1 items-center justify-center rounded-full bg-[#2b2927] px-6 py-3 font-sans text-base tracking-[0.4px] text-[#f5f4f0] transition-colors hover:bg-[#3d3a37]"
+          >
+            Aplicar
+          </button>
+        </div>
+      </aside>
+
       {/* Back to top */}
       <button
         onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}

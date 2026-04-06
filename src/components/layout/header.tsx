@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useState } from "react";
+import { usePathname } from "next/navigation";
 import {
   Menu,
   ChevronDown,
@@ -75,16 +76,16 @@ const staticNavItems = [
 
 const themeStyles = {
   light: {
-    pill: "bg-[rgba(253,252,251,0.08)]",
+    header: "bg-transparent border-[rgba(253,252,251,0.12)]",
     text: "text-[#fdfcfb]",
     textHover: "hover:text-[#fdfcfb]/80",
-    chevronBg: "bg-[rgba(253,252,251,0.08)]",
-    actionBg: "bg-[rgba(253,252,251,0.06)] hover:bg-[rgba(253,252,251,0.20)]",
+    chevronBg: "bg-[rgba(253,252,251,0.12)]",
+    actionBg: "bg-[rgba(253,252,251,0.08)] hover:bg-[rgba(253,252,251,0.16)]",
     badgeBg: "bg-[#fdfcfb] text-[#2b2927]",
     mobileBtn: "text-[#fdfcfb]/70 hover:text-[#fdfcfb] hover:bg-[rgba(253,252,251,0.12)]",
   },
   dark: {
-    pill: "bg-[rgba(43,41,39,0.06)] shadow-[0_1px_2px_rgba(0,0,0,0.05)]",
+    header: "bg-[#faf9f7] border-[#e4dfd8]",
     text: "text-[#2b2927]",
     textHover: "hover:text-[#2b2927]/70",
     chevronBg: "bg-[rgba(43,41,39,0.08)]",
@@ -100,13 +101,16 @@ export function Header() {
   const openCart = useCartStore((s) => s.openCart);
   const [megaMenuOpen, setMegaMenuOpen] = useState(false);
   const headerTheme = useHeaderTheme();
+  const pathname = usePathname();
 
   const t = themeStyles[headerTheme];
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 px-3 pt-2">
+    <header
+      className={`fixed top-0 left-0 right-0 z-50 border-b backdrop-blur-sm transition-all duration-500 ease-out ${t.header}`}
+    >
       <div
-        className={`mx-auto flex max-w-[1360px] items-center justify-between rounded-full border-b border-transparent pl-8 pr-4 py-4 backdrop-blur-sm transition-all duration-500 ease-out ${t.pill}`}
+        className="mx-auto flex max-w-[1360px] items-center justify-between pl-8 pr-4 py-5"
       >
         {/* Mobile menu */}
         <Sheet>
@@ -179,7 +183,7 @@ export function Header() {
           {access.isLoggedIn ? (
             <DropdownMenu>
               <DropdownMenuTrigger
-                className={`inline-flex items-center gap-2 rounded-full pl-2 pr-3 py-1.5 text-sm font-medium leading-5 tracking-[-0.2px] backdrop-blur-sm transition-all duration-500 ${t.text} ${t.actionBg}`}
+                className={`inline-flex items-center gap-2 rounded-full pl-2 pr-3 py-[6px] text-sm font-medium leading-5 tracking-[-0.2px] transition-all duration-500 ${t.text} ${t.actionBg}`}
               >
                 <IconEntrar className="h-5 w-5 shrink-0" />
                 <span className="whitespace-nowrap">Olá, {customer?.firstName ?? "Conta"}</span>
@@ -229,8 +233,8 @@ export function Header() {
             </DropdownMenu>
           ) : (
             <Link
-              href="/login"
-              className={`inline-flex items-center gap-2 rounded-full pl-2 pr-3 py-1.5 text-sm font-medium leading-5 tracking-[-0.2px] backdrop-blur-sm transition-all duration-500 ${t.text} ${t.actionBg}`}
+              href={`/login?redirect=${encodeURIComponent(pathname)}`}
+              className={`inline-flex items-center gap-2 rounded-full pl-2 pr-3 py-[6px] text-sm font-medium leading-5 tracking-[-0.2px] transition-all duration-500 ${t.text} ${t.actionBg}`}
             >
               <IconEntrar className="h-5 w-5 shrink-0" />
               <span>Entrar</span>
@@ -241,7 +245,7 @@ export function Header() {
           <button
             onClick={openCart}
             aria-label="Abrir carrinho"
-            className={`inline-flex items-center gap-2 rounded-full pl-2 pr-3 py-1.5 text-sm font-medium leading-5 tracking-[-0.2px] backdrop-blur-sm transition-all duration-500 ${t.text} ${t.actionBg}`}
+            className={`inline-flex items-center gap-1 rounded-full px-2 py-[6px] text-sm font-medium leading-5 tracking-[-0.2px] transition-all duration-500 ${t.text} ${t.actionBg}`}
           >
             <IconCarrinho className="h-5 w-5 shrink-0" />
             <span className="w-5 text-center">{itemCount}</span>

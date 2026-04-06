@@ -9,7 +9,7 @@ export default function AccountLayout({
   return (
     <>
       <Header />
-      <main className="flex-1 pt-[72px]">{children}</main>
+      <main className="flex-1 pt-[60px]">{children}</main>
       <Footer />
     </>
   );

@@ -62,12 +62,31 @@ export default function ProductDetailPage({
 
   return (
     <div data-header-theme="dark" className="bg-[#faf9f7]">
+      {/* ─── Breadcrumb ───────────────────────────────── */}
+      <div className="mx-auto max-w-[1360px] px-6 pt-12 pb-0">
+        <p className="font-sans text-xs tracking-[0.4px] text-[#6a6662]">
+          <Link href="/" className="hover:underline">Início</Link>
+          {" / "}
+          <Link href="/loja" className="hover:underline">Todos os Produtos</Link>
+          {category && (
+            <>
+              {" / "}
+              <Link href={`/loja?category=${category.slug}`} className="hover:underline">
+                {category.name}
+              </Link>
+            </>
+          )}
+          {" / "}
+          <span className="text-[#2b2927]">{product.name}</span>
+        </p>
+      </div>
+
       {/* ─── HERO: Gallery + Sticky Info ──────────────── */}
       <section className="flex flex-col lg:flex-row">
         {/* Left — gallery: thumbnail strip + main image */}
-        <div className="w-full lg:sticky lg:top-[88px] lg:self-start lg:h-auto lg:w-1/2 lg:flex lg:justify-end">
+        <div className="w-full lg:sticky lg:top-[76px] lg:self-start lg:h-auto lg:w-1/2 lg:flex lg:justify-end">
           {product.images.length > 0 ? (
-            <div className="flex flex-col lg:flex-row lg:items-start lg:justify-end pt-16 pb-16">
+            <div className="flex flex-col lg:flex-row lg:items-start lg:justify-end pt-6 pb-16">
               {/* Thumbnail strip */}
               {product.images.length > 1 && (
                 <div className="flex gap-2 overflow-x-auto p-3 lg:w-[96px] lg:flex-col lg:overflow-x-visible lg:overflow-y-auto lg:px-4 lg:pt-0 lg:pb-4 lg:scrollbar-none">

@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { createPortal } from "react-dom";
 import Link from "next/link";
 import Image from "next/image";
 import { ArrowUpRight, X } from "lucide-react";
@@ -55,10 +56,10 @@ export function ProductsMenu({ open, onClose }: ProductsMenuProps) {
   const activeImage =
     hoveredIndex !== null ? menuItems[hoveredIndex].image : null;
 
-  return (
+  const menu = (
     <div
       ref={containerRef}
-      className={`products-menu fixed inset-0 z-[100] ${open ? "is-open" : "is-closed"}`}
+      className={`products-menu fixed inset-0 z-[200] ${open ? "is-open" : "is-closed"}`}
       aria-hidden={!open}
     >
       {/* Backdrop */}
@@ -70,8 +71,8 @@ export function ProductsMenu({ open, onClose }: ProductsMenuProps) {
       {/* Panel */}
       <div className="products-menu__panel absolute inset-0 bg-[#f9f9f8]">
         {/* Header row — mirrors the site header */}
-        <div className="absolute top-0 left-0 right-0 z-10 px-3 pt-2">
-          <div className="mx-auto flex max-w-[1360px] items-center justify-between rounded-full bg-[rgba(43,41,39,0.08)] pl-8 pr-4 py-4">
+        <div className="absolute top-0 left-0 right-0 z-10 border-b border-[#e4dfd8] bg-[#faf9f7]">
+          <div className="mx-auto flex max-w-[1360px] items-center justify-between pl-8 pr-4 py-5">
             <Link href="/" onClick={onClose} className="w-[128px] flex-shrink-0">
               <span className="font-heading text-2xl leading-8 tracking-[-0.6px] text-[#2b2927]">
                 recreio.estética
@@ -84,7 +85,7 @@ export function ProductsMenu({ open, onClose }: ProductsMenuProps) {
               <button
                 onClick={onClose}
                 aria-label="Fechar"
-                className="inline-flex items-center gap-2 rounded-full pl-2 pr-3 py-1.5 text-sm font-medium leading-5 tracking-[-0.2px] text-[#2b2927] bg-[rgba(43,41,39,0.08)] hover:bg-[rgba(43,41,39,0.14)] transition-colors duration-300"
+                className="inline-flex items-center gap-2 rounded-full pl-2 pr-3 py-[6px] text-sm font-medium leading-5 tracking-[-0.2px] text-[#2b2927] bg-[rgba(43,41,39,0.08)] hover:bg-[rgba(43,41,39,0.14)] transition-colors duration-300"
               >
                 <X className="h-4 w-4 text-[#2b2927]" strokeWidth={2} />
                 <span>Fechar</span>
@@ -94,7 +95,7 @@ export function ProductsMenu({ open, onClose }: ProductsMenuProps) {
         </div>
 
         {/* Menu content */}
-        <div className="absolute left-0 right-0 top-[90px] px-12 pt-24 pb-16">
+        <div className="absolute left-0 right-0 top-[60px] px-12 pt-24 pb-16">
           <div className="mx-auto flex max-w-[1360px] items-start gap-24">
             {/* Left — title + links */}
             <div className="flex flex-col gap-12">
@@ -158,4 +159,7 @@ export function ProductsMenu({ open, onClose }: ProductsMenuProps) {
       </div>
     </div>
   );
+
+  if (typeof document === "undefined") return null;
+  return createPortal(menu, document.body);
 }
