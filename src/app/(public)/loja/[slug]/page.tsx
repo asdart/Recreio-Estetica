@@ -27,7 +27,7 @@ import {
   getWhatsAppUrl,
 } from "@/features/whatsapp/whatsapp-utils";
 import { mockProducts, mockBrands, mockCategories } from "@/mocks";
-import { FeaturedProductCard } from "@/components/commerce/featured-product-card";
+import { ProductCard } from "@/components/product/product-card";
 
 /* ─── Tabs for "About" section ────────────────────────────── */
 
@@ -49,7 +49,6 @@ export default function ProductDetailPage({
   const addItem = useCartStore((s) => s.addItem);
   const brand = mockBrands.find((b) => b.id === product.brandId);
   const category = mockCategories.find((c) => c.id === product.categoryId);
-  const brandMap = Object.fromEntries(mockBrands.map((b) => [b.id, b.name]));
   const whatsappUrl = getWhatsAppUrl(buildWhatsAppProductMessage(product.name));
 
   const [qty, setQty] = useState(1);
@@ -165,7 +164,7 @@ export default function ProductDetailPage({
         {/* Right — sticky product details (max 600px, Figma) */}
         <div className="flex w-full justify-center lg:w-1/2 lg:justify-start lg:pl-4 xl:pl-6">
           <div className="w-full max-w-[600px]">
-            <div className="flex flex-col gap-10 bg-[#faf9f7] p-8 lg:py-16 lg:pr-6 xl:pr-8">
+            <div className="flex flex-col gap-10 bg-[#faf9f7] p-8 lg:pb-16 lg:pt-6 lg:pr-6 xl:pr-8">
             {/* Category pill */}
             {category && (
               <span className="inline-flex w-fit rounded-full bg-[rgba(43,41,39,0.04)] px-3 py-1 font-sans text-xs uppercase tracking-[1.2px] text-[#6a6662]">
@@ -237,19 +236,6 @@ export default function ProductDetailPage({
               </div>
             )}
 
-            {/* Warning box */}
-            <div className="flex flex-col gap-2 rounded-2xl bg-[#faeee9] p-4">
-              <div className="flex items-center gap-1.5">
-                <AlertTriangle className="h-5 w-5 text-[#8f5f54]" strokeWidth={1.5} />
-                <span className="font-sans text-sm font-medium text-[#8f5f54]">
-                  Aviso importante
-                </span>
-              </div>
-              <p className="font-sans text-sm leading-5 text-[#8f5f54]">
-                Medicamento sujeito a prescrição e aplicação exclusiva de profissionais da saúde habilitados.
-              </p>
-            </div>
-
             {/* Quantity + Shipping row */}
             <div className="flex flex-col gap-6">
               <div className="flex flex-col gap-4">
@@ -313,6 +299,19 @@ export default function ProductDetailPage({
                   <MessageCircle className="h-5 w-5" strokeWidth={1.5} />
                   Dúvidas? Fale conosco no Whatsapp
                 </a>
+              </div>
+
+              {/* Warning box */}
+              <div className="flex flex-col gap-2 rounded-2xl bg-[#faeee9] p-4">
+                <div className="flex items-center gap-1.5">
+                  <AlertTriangle className="h-5 w-5 text-[#8f5f54]" strokeWidth={1.5} />
+                  <span className="font-sans text-sm font-medium text-[#8f5f54]">
+                    Aviso importante
+                  </span>
+                </div>
+                <p className="font-sans text-sm leading-5 text-[#8f5f54]">
+                  Medicamento sujeito a prescrição e aplicação exclusiva de profissionais da saúde habilitados.
+                </p>
               </div>
             </div>
 
@@ -538,10 +537,17 @@ export default function ProductDetailPage({
             </div>
           </div>
           <div className="pl-6 lg:pl-[max(1.5rem,calc((100vw-1360px)/2+1.5rem))]">
-            <div className="flex gap-4 overflow-x-auto pr-6 scrollbar-none" style={{ scrollSnapType: "x mandatory" }}>
+            <div
+              className="flex gap-8 overflow-x-auto pr-6 scrollbar-none"
+              style={{ scrollSnapType: "x mandatory" }}
+            >
               {relatedProducts.map((p) => (
-                <div key={p.id} className="shrink-0" style={{ scrollSnapAlign: "start" }}>
-                  <FeaturedProductCard product={p} brandName={brandMap[p.brandId] ?? ""} />
+                <div
+                  key={p.id}
+                  className="w-[72vw] max-w-[360px] shrink-0 sm:w-[45vw] lg:w-[30vw]"
+                  style={{ scrollSnapAlign: "start" }}
+                >
+                  <ProductCard key={p.id} product={p} />
                 </div>
               ))}
             </div>

@@ -1,7 +1,8 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import { createPortal } from "react-dom";
 import { X, ShoppingBag, MessageCircle, ArrowRight } from "lucide-react";
 import { useCartStore } from "@/features/cart/cart-store";
 import { useAuth } from "@/features/auth/use-auth";
@@ -44,7 +45,10 @@ export function CartSidepanel() {
     return () => window.removeEventListener("keydown", handler);
   }, [closeCart]);
 
-  return (
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => { setMounted(true); }, []);
+
+  const panel = (
     <>
       {/* Backdrop */}
       <div
@@ -180,4 +184,6 @@ export function CartSidepanel() {
       </aside>
     </>
   );
+
+  return mounted ? createPortal(panel, document.body) : null;
 }
