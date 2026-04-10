@@ -8,19 +8,18 @@ import type { Product } from "@/types";
 
 type FeaturedProductsProps = {
   products: Product[];
-  brandMap: Record<string, string>;
   title?: string;
   subtitle?: string;
   categorySlug?: string;
 };
 
-export function FeaturedProducts({ products, brandMap, title, subtitle, categorySlug }: FeaturedProductsProps) {
+export function FeaturedProducts({ products, title, subtitle, categorySlug }: FeaturedProductsProps) {
   const scrollRef = useRef<HTMLDivElement>(null);
 
   const scroll = useCallback((direction: "left" | "right") => {
     const el = scrollRef.current;
     if (!el) return;
-    const cardWidth = 320 + 16;
+    const cardWidth = 280 + 24;
     el.scrollBy({
       left: direction === "left" ? -cardWidth : cardWidth,
       behavior: "smooth",
@@ -95,14 +94,13 @@ export function FeaturedProducts({ products, brandMap, title, subtitle, category
       <div className="mx-auto max-w-[1360px] mt-[72px] pl-6">
         <div
           ref={scrollRef}
-          className="flex gap-4 overflow-x-auto scrollbar-none px-6 pb-4 -mb-4"
+          className="flex gap-6 overflow-x-auto scrollbar-none px-6 pb-4 -mb-4"
           style={{ scrollSnapType: "x mandatory" }}
         >
           {products.map((product) => (
             <div key={product.id} className="shrink-0" style={{ scrollSnapAlign: "start" }}>
               <FeaturedProductCard
                 product={product}
-                brandName={brandMap[product.brandId] ?? ""}
               />
             </div>
           ))}

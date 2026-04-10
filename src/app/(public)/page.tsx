@@ -9,13 +9,13 @@ import { BrowseCategories } from "@/components/commerce/browse-categories";
 import { ProductShowcase } from "@/components/commerce/product-showcase";
 import { HomeFaq } from "@/components/commerce/home-faq";
 import { HeroContent } from "@/components/hero/hero-content";
-import { mockProducts, mockBrands } from "@/mocks";
+import { mockProducts } from "@/mocks";
 import { WHATSAPP_NUMBER, WHATSAPP_BASE_URL } from "@/lib/constants";
 
 const featuredProducts = mockProducts.filter((p) => p.featured);
 const fillerProducts = mockProducts.filter((p) => p.categoryId === "cat-2");
 const skincareProducts = mockProducts.filter((p) => p.categoryId === "cat-5");
-const brandMap = Object.fromEntries(mockBrands.map((b) => [b.id, b.name]));
+const showcaseProduct = fillerProducts[0];
 
 export default function HomePage() {
   return (
@@ -45,29 +45,27 @@ export default function HomePage() {
       <PromoTicker />
 
       {/* Featured Products */}
-      <FeaturedProducts products={featuredProducts} brandMap={brandMap} />
+      <FeaturedProducts products={featuredProducts} />
 
       {/* Browse by Category */}
       <BrowseCategories />
 
       {/* Product Showcase — Preenchedores */}
-      <ProductShowcase
-        title="Preenchedores"
-        subtitle="Mantenha-se brilhante e saudável sem ter que pensar nisso."
-        image="https://assets.lummi.ai/assets/QmYybTZZXwoZq3LsG4QQD4dtkQhbdrJRZD9ZGNcD1Cvdaw?auto=format&w=1200"
-        imageAlt="Tratamento estético profissional com preenchedores"
-        products={fillerProducts}
-        brandMap={brandMap}
-        categorySlug="acido-hialuronico"
-        imagePosition="left"
-      />
+      {showcaseProduct && (
+        <ProductShowcase
+          image="/images/Fotografia de Beleza 1.png"
+          imageAlt="Tratamento estético profissional com preenchedores"
+          product={showcaseProduct}
+          accentColor="#faeee9"
+          imagePosition="left"
+        />
+      )}
 
       {/* Skinboosters */}
       <FeaturedProducts
         title="Skinboosters"
         subtitle="Hidratação profunda e biorevitalização para uma pele radiante."
         products={skincareProducts}
-        brandMap={brandMap}
         categorySlug="skincare-profissional"
       />
 

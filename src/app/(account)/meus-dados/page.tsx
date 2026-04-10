@@ -1,58 +1,98 @@
 "use client";
 
-import { Container } from "@/components/layout/container";
-import { Button } from "@/components/ui/button";
+import { User } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Badge } from "@/components/ui/badge";
 import { useAuth } from "@/features/auth/use-auth";
 import { VALIDATION_STATUS_LABELS } from "@/lib/constants";
 
 export default function MeusDadosPage() {
   const { customer } = useAuth();
 
-  return (
-    <Container data-header-theme="dark" className="py-10 md:py-16">
-      <h1 className="mb-8 !text-3xl">Meus Dados</h1>
+  if (!customer) {
+    return (
+      <p className="py-12 text-center font-sans text-sm text-[#9c9690]">
+        Faça login para acessar seus dados.
+      </p>
+    );
+  }
 
-      <div className="mx-auto max-w-lg space-y-6">
-        <div className="grid gap-4 sm:grid-cols-2">
-          <div className="space-y-2">
-            <Label>Nome</Label>
-            <Input defaultValue={customer?.firstName ?? ""} />
-          </div>
-          <div className="space-y-2">
-            <Label>Sobrenome</Label>
-            <Input defaultValue={customer?.lastName ?? ""} />
-          </div>
+  return (
+    <div className="flex flex-col gap-6">
+      {/* Section header */}
+      <div className="flex items-center gap-2">
+        <div className="flex h-8 w-8 items-center justify-center rounded-full bg-[rgba(43,41,39,0.08)]">
+          <User className="h-5 w-5 text-[#2b2927]" strokeWidth={1.5} />
         </div>
-        <div className="space-y-2">
-          <Label>E-mail</Label>
-          <Input defaultValue={customer?.email ?? ""} type="email" />
-        </div>
-        <div className="space-y-2">
-          <Label>Telefone</Label>
-          <Input defaultValue={customer?.phone ?? ""} type="tel" />
-        </div>
-        <div className="space-y-2">
-          <Label>Registro Profissional</Label>
-          <div className="flex items-center gap-3">
-            <Input
-              defaultValue={customer?.registrationNumber ?? ""}
-              readOnly
-              className="flex-1"
-            />
-            {customer && (
-              <Badge variant="outline">
-                {VALIDATION_STATUS_LABELS[customer.validationStatus]}
-              </Badge>
-            )}
-          </div>
-        </div>
-        <Button size="lg" className="w-full">
-          Salvar Alterações
-        </Button>
+        <h2 className="font-heading text-[32px] leading-10 tracking-[0.3px] text-[#2b2927]">
+          Dados pessoais
+        </h2>
       </div>
-    </Container>
+
+      <div className="rounded-3xl border border-[#e4dfd8] bg-[#faf9f7] p-6">
+        <div className="grid gap-5 sm:grid-cols-2">
+          <div className="flex flex-col gap-2">
+            <Label className="font-sans text-xs font-semibold uppercase tracking-[1px] text-[#6a6662]">
+              Nome
+            </Label>
+            <Input
+              value={customer.firstName}
+              readOnly
+              className="h-11 rounded-xl border-[#e0ddd8] bg-white px-4 font-sans text-sm text-[#2b2927]"
+            />
+          </div>
+          <div className="flex flex-col gap-2">
+            <Label className="font-sans text-xs font-semibold uppercase tracking-[1px] text-[#6a6662]">
+              Sobrenome
+            </Label>
+            <Input
+              value={customer.lastName}
+              readOnly
+              className="h-11 rounded-xl border-[#e0ddd8] bg-white px-4 font-sans text-sm text-[#2b2927]"
+            />
+          </div>
+          <div className="flex flex-col gap-2">
+            <Label className="font-sans text-xs font-semibold uppercase tracking-[1px] text-[#6a6662]">
+              E-mail
+            </Label>
+            <Input
+              value={customer.email}
+              readOnly
+              className="h-11 rounded-xl border-[#e0ddd8] bg-white px-4 font-sans text-sm text-[#2b2927]"
+            />
+          </div>
+          <div className="flex flex-col gap-2">
+            <Label className="font-sans text-xs font-semibold uppercase tracking-[1px] text-[#6a6662]">
+              Telefone
+            </Label>
+            <Input
+              value={customer.phone}
+              readOnly
+              className="h-11 rounded-xl border-[#e0ddd8] bg-white px-4 font-sans text-sm text-[#2b2927]"
+            />
+          </div>
+          <div className="flex flex-col gap-2">
+            <Label className="font-sans text-xs font-semibold uppercase tracking-[1px] text-[#6a6662]">
+              Registro Profissional
+            </Label>
+            <Input
+              value={customer.registrationNumber}
+              readOnly
+              className="h-11 rounded-xl border-[#e0ddd8] bg-white px-4 font-sans text-sm text-[#2b2927]"
+            />
+          </div>
+          <div className="flex flex-col gap-2">
+            <Label className="font-sans text-xs font-semibold uppercase tracking-[1px] text-[#6a6662]">
+              Status da Validação
+            </Label>
+            <Input
+              value={VALIDATION_STATUS_LABELS[customer.validationStatus] ?? customer.validationStatus}
+              readOnly
+              className="h-11 rounded-xl border-[#e0ddd8] bg-white px-4 font-sans text-sm text-[#2b2927]"
+            />
+          </div>
+        </div>
+      </div>
+    </div>
   );
 }

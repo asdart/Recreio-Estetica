@@ -32,6 +32,11 @@ const menuItems = [allProductsItem, ...categoryLinks];
 export function ProductsMenu({ open, onClose }: ProductsMenuProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   useEffect(() => {
     if (!open) return;
@@ -160,6 +165,6 @@ export function ProductsMenu({ open, onClose }: ProductsMenuProps) {
     </div>
   );
 
-  if (typeof document === "undefined") return null;
+  if (!mounted) return null;
   return createPortal(menu, document.body);
 }
