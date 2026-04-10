@@ -21,7 +21,7 @@ export function FeaturedProductCard({ product }: FeaturedProductCardProps) {
       className="group flex w-[280px] shrink-0 flex-col gap-4"
     >
       {/* Image */}
-      <div className="relative h-[340px] w-full overflow-hidden rounded-[16px]">
+      <div className="relative h-[340px] w-full overflow-hidden">
         <Image
           src={product.images[0]?.url ?? "/images/placeholder.svg"}
           alt={product.images[0]?.alt ?? product.name}

@@ -8,6 +8,7 @@ import { FeaturedProducts } from "@/components/commerce/featured-products";
 import { BrowseCategories } from "@/components/commerce/browse-categories";
 import { ProductShowcase } from "@/components/commerce/product-showcase";
 import { HomeFaq } from "@/components/commerce/home-faq";
+import { AboutBanner } from "@/components/commerce/about-banner";
 import { HeroContent } from "@/components/hero/hero-content";
 import { mockProducts } from "@/mocks";
 import { WHATSAPP_NUMBER, WHATSAPP_BASE_URL } from "@/lib/constants";
@@ -21,11 +22,11 @@ export default function HomePage() {
   return (
     <>
       {/* Hero */}
-      <section data-header-theme="light" className="relative flex items-center justify-center min-h-[600px] md:min-h-[800px] lg:min-h-[948px] -mt-[72px]">
+      <section data-header-theme="light" className="relative isolate flex items-center justify-center min-h-[600px] md:min-h-[800px] lg:min-h-[948px] -mt-[72px]">
         {/* Background image + overlay — clipped independently so dropdown is not cut off */}
-        <div className="absolute inset-0 overflow-hidden">
+        <div className="absolute inset-0 z-0 overflow-hidden">
           <Image
-            src="/images/hero-bg.png"
+            src="/images/Fotografia de Beleza.png"
             alt=""
             fill
             className="object-cover"
@@ -36,7 +37,7 @@ export default function HomePage() {
         </div>
 
         {/* Content */}
-        <div className="relative z-10 flex flex-col items-center justify-center w-full max-w-[1360px] px-6 py-12">
+        <div className="relative z-20 flex w-full max-w-[1360px] flex-col items-center justify-center px-6 py-12">
           <HeroContent />
         </div>
       </section>
@@ -53,7 +54,7 @@ export default function HomePage() {
       {/* Product Showcase — Preenchedores */}
       {showcaseProduct && (
         <ProductShowcase
-          image="/images/Fotografia de Beleza 1.png"
+          image="/images/Fotografia de Beleza-2.png"
           imageAlt="Tratamento estético profissional com preenchedores"
           product={showcaseProduct}
           accentColor="#faeee9"
@@ -68,6 +69,9 @@ export default function HomePage() {
         products={skincareProducts}
         categorySlug="skincare-profissional"
       />
+
+      {/* About Banner */}
+      <AboutBanner />
 
       {/* Trust Section */}
       <section data-header-theme="dark" className="py-20 md:py-28">

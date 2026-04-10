@@ -95,7 +95,7 @@ export function BrowseCategories() {
               style={{ scrollSnapAlign: "start" }}
             >
               {/* Image */}
-              <div className="relative h-[488px] w-full overflow-hidden rounded-[16px] bg-[#e8e6e1]">
+              <div className="relative h-[488px] w-full overflow-hidden rounded-none bg-[#e8e6e1]">
                 <Image
                   src={cat.image}
                   alt={cat.alt}

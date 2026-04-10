@@ -100,8 +100,9 @@ export function Header() {
   const itemCount = useCartStore((s) => s.itemCount());
   const openCart = useCartStore((s) => s.openCart);
   const [megaMenuOpen, setMegaMenuOpen] = useState(false);
-  const headerTheme = useHeaderTheme();
   const pathname = usePathname();
+  const initialHeaderTheme = pathname === "/" ? "light" : "dark";
+  const headerTheme = useHeaderTheme(initialHeaderTheme);
 
   const t = themeStyles[headerTheme];
 

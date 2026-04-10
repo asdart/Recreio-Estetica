@@ -25,12 +25,22 @@ function getThemeFromDOM(): HeaderTheme {
   return "dark";
 }
 
-export function useHeaderTheme(): HeaderTheme {
-  const [theme, setTheme] = useState<HeaderTheme>(getThemeFromDOM);
+export function useHeaderTheme(initialTheme: HeaderTheme = "dark"): HeaderTheme {
+  const [theme, setTheme] = useState<HeaderTheme>(initialTheme);
 
   const recalculate = useCallback(() => {
     setTheme(getThemeFromDOM());
   }, []);
+
+  useEffect(() => {
+    setTheme(initialTheme);
+
+    const frame = window.requestAnimationFrame(() => {
+      recalculate();
+    });
+
+    return () => window.cancelAnimationFrame(frame);
+  }, [initialTheme, recalculate]);
 
   useEffect(() => {
     recalculate();

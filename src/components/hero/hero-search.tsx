@@ -125,7 +125,7 @@ export function HeroSearch() {
   }, []);
 
   return (
-    <div ref={containerRef} className="hero-fade relative w-full max-w-[640px]">
+    <div ref={containerRef} className="hero-fade relative z-20 w-full max-w-[640px] opacity-100">
       {/* Input pill */}
       <div className="flex items-center justify-between w-full rounded-full border border-[rgba(253,252,251,0.16)] bg-[rgba(253,252,251,0.24)] backdrop-blur-[10px] pl-8 pr-[7px] py-[7px] transition-all duration-300 ease-out focus-within:bg-[rgba(253,252,251,0.32)] focus-within:border-[rgba(253,252,251,0.30)]">
         <input

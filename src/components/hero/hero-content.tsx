@@ -17,7 +17,7 @@ export function HeroContent() {
   return (
     <div
       ref={containerRef}
-      className="hero-entrance flex flex-col items-center gap-10 w-full max-w-[900px] text-center"
+      className="hero-entrance relative z-20 flex w-full max-w-[900px] flex-col items-center gap-10 text-center"
     >
       {/* Headline */}
       <div className="flex flex-col gap-0 w-full">
@@ -32,7 +32,7 @@ export function HeroContent() {
       </div>
 
       {/* Subtitle */}
-      <p className="hero-fade font-sans text-lg leading-7 text-[#fdfcfb]/80 max-w-[520px]">
+      <p className="hero-fade max-w-[520px] font-sans text-lg leading-7 text-[#fdfcfb]/80">
         Conectamos profissionais da área a marcas, produtos e suporte
         especializado para uma compra mais segura, técnica e eficiente.
       </p>

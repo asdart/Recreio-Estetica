@@ -86,12 +86,6 @@ export function ProductCardView({
             </p>
           )}
 
-          {/* Short description */}
-          {shortDescription && (
-            <p className="font-sans text-[14px] leading-5 text-[#6a6662] line-clamp-2">
-              {shortDescription}
-            </p>
-          )}
         </div>
 
         {/* CTA */}

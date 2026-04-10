@@ -28,7 +28,7 @@ export function ProductShowcase({
   return (
     <section
       data-header-theme="dark"
-      className="relative bg-[#faf9f7] overflow-x-clip"
+      className="relative h-screen bg-[#faf9f7] overflow-x-clip"
     >
       <div
         className={`flex flex-col lg:min-h-[920px] ${
@@ -79,7 +79,7 @@ export function ProductShowcase({
             className="group flex w-full max-w-[384px] flex-col items-center gap-5"
           >
             {/* Product image */}
-            <div className="relative h-[400px] w-full overflow-hidden rounded-[16px] sm:h-[512px]">
+            <div className="relative h-[400px] w-full overflow-hidden rounded-none sm:h-[512px]">
               <Image
                 src={product.images[0]?.url ?? "/images/placeholder.svg"}
                 alt={product.images[0]?.alt ?? product.name}

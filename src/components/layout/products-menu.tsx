@@ -61,11 +61,12 @@ export function ProductsMenu({ open, onClose }: ProductsMenuProps) {
   const activeImage =
     hoveredIndex !== null ? menuItems[hoveredIndex].image : null;
 
+  if (!mounted || !open) return null;
+
   const menu = (
     <div
       ref={containerRef}
-      className={`products-menu fixed inset-0 z-[200] ${open ? "is-open" : "is-closed"}`}
-      aria-hidden={!open}
+      className="products-menu fixed inset-0 z-[200] is-open"
     >
       {/* Backdrop */}
       <div
@@ -165,6 +166,5 @@ export function ProductsMenu({ open, onClose }: ProductsMenuProps) {
     </div>
   );
 
-  if (!mounted) return null;
   return createPortal(menu, document.body);
 }

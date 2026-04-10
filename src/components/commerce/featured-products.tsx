@@ -19,7 +19,7 @@ export function FeaturedProducts({ products, title, subtitle, categorySlug }: Fe
   const scroll = useCallback((direction: "left" | "right") => {
     const el = scrollRef.current;
     if (!el) return;
-    const cardWidth = 280 + 24;
+    const cardWidth = 280 + 16;
     el.scrollBy({
       left: direction === "left" ? -cardWidth : cardWidth,
       behavior: "smooth",
@@ -48,7 +48,7 @@ export function FeaturedProducts({ products, title, subtitle, categorySlug }: Fe
               </>
             )}
             {subtitle && (
-              <p className="mt-2 max-w-[480px] font-sans text-base leading-6 text-[#8b8985]">
+              <p className="mt-2 max-w-[480px] font-sans text-base leading-6 tracking-[-0.2px] text-[#8b8985]">
                 {subtitle}
               </p>
             )}
@@ -94,7 +94,7 @@ export function FeaturedProducts({ products, title, subtitle, categorySlug }: Fe
       <div className="mx-auto max-w-[1360px] mt-[72px] pl-6">
         <div
           ref={scrollRef}
-          className="flex gap-6 overflow-x-auto scrollbar-none px-6 pb-4 -mb-4"
+          className="flex gap-4 overflow-x-auto scrollbar-none px-6 pb-4 -mb-4"
           style={{ scrollSnapType: "x mandatory" }}
         >
           {products.map((product) => (
